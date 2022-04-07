@@ -9,5 +9,11 @@ func main() {
 		return c.SendString("Hello, World 👋!")
 	})
 
+	app.Post("/", func(c *fiber.Ctx) error {
+		return c.JSON(&fiber.Map{
+			"success": true,
+		})
+	})
+
 	app.Listen(":3000")
 }
