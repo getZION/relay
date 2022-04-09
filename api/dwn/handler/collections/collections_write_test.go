@@ -26,7 +26,12 @@ func Test_UserCreate(t *testing.T) {
 	entries, err := CollectionsWrite(&handler.RequestContext{
 		ModelManager: modelManager,
 		Message: &dwn.Message{
-			Data: `{ "Name": "test_name", "Username": "test_username", "Did": "did", "Model": "Zion.User.V1" }`,
+			Data: `{
+				"Name": "test_name",
+				"Username": "test_username",
+				"Did": "did",
+				"Model": "Zion.User.V1"
+			}`,
 			Descriptor: &dwn.MessageDescriptor{
 				ObjectId:    OBJECT_ID,
 				DateCreated: DATE_CREATED,
