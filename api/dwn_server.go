@@ -2,6 +2,9 @@ package api
 
 import (
 	"github.com/getzion/relay/api/dwn"
+	"github.com/getzion/relay/api/handler"
+
+	// . "github.com/getzion/relay/utils"
 	"github.com/gofiber/fiber/v2"
 )
 
@@ -37,5 +40,19 @@ func (dwnServer *DWNServer) Process(ctx *fiber.Ctx) error {
 	}
 
 	ctx.Response().Header.Set("Content-Type", "application/json")
+
+	for _, message := range request.Messages {
+		context := handler.RequestContext{
+			// SchemaManager: identityHub.schemaManager,
+			Message: message,
+		}
+
+		pubKey, _ := context.GetPublicKey()
+		context.VerifyRequest(pubKey)
+		// signedString, _ := context.RecreateStringToSign()
+
+		// context.VerifyRequest(signedString, pubKey)
+	}
+
 	return ctx.Status(fiber.StatusOK).JSON(response)
 }
