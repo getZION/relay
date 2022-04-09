@@ -46,4 +46,4 @@ Courtesy of [DIF](https://identity.foundation/)
 
 ## Previous codebases
 
-Consolidating to this repo from previous v2 codebases [https://github.com/getZION/relay-dev](relay-dev) and our [lnbits fork](https://github.com/getZION/lnbits-infinity).
+Consolidating to this repo from previous v2 codebases [relay-dev](https://github.com/getZION/relay-dev) and our [lnbits fork](https://github.com/getZION/lnbits-infinity).
