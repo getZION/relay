@@ -46,7 +46,7 @@ func (c *RequestContext) GetPublicKey() (*ecdsa.PublicKey, *errors.MessageLevelE
 		return nil, errors.NewMessageLevelError(400, "Invalid pubkey", nil)
 	} else {
 		Log.Info().
-			Bool("Compressed", btcec.IsCompressedPubKey(pubKeyBytes)).
+			Bool("compressed", btcec.IsCompressedPubKey(pubKeyBytes)).
 			Msg("Received valid pubkey")
 	}
 

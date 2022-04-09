@@ -4,7 +4,7 @@ import (
 	"github.com/getzion/relay/api/dwn"
 	"github.com/getzion/relay/api/handler"
 
-	// . "github.com/getzion/relay/utils"
+	. "github.com/getzion/relay/utils"
 	"github.com/gofiber/fiber/v2"
 )
 
@@ -48,10 +48,9 @@ func (dwnServer *DWNServer) Process(ctx *fiber.Ctx) error {
 		}
 
 		pubKey, _ := context.GetPublicKey()
-		context.VerifyRequest(pubKey)
-		// signedString, _ := context.RecreateStringToSign()
+		verified, _ := context.VerifyRequest(pubKey)
 
-		// context.VerifyRequest(signedString, pubKey)
+		Log.Info().Bool("verified", verified).Msg("Processed valid request")
 	}
 
 	return ctx.Status(fiber.StatusOK).JSON(response)
