@@ -43,3 +43,7 @@ Courtesy of [DIF](https://identity.foundation/)
 ![What are Decentralized Web Nodes?](docs/images/dwn1.png)
 
 ![DID + DWN Topology](docs/images/dwn2.png)
+
+## Previous codebases
+
+Consolidating to this repo from previous v2 codebases [https://github.com/getZION/relay-dev](relay-dev) and our [lnbits fork](https://github.com/getZION/lnbits-infinity).
