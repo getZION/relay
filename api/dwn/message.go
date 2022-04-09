@@ -12,7 +12,7 @@ type Message struct {
 
 	// Message objects MUST contain a descriptor property, and its value MUST be an
 	// object, as defined by the Message Descriptors section of this specification.
-	Descriptor_ *MessageDescriptor `json:"descriptor,omitempty"`
+	Descriptor *MessageDescriptor `json:"descriptor,omitempty"`
 
 	// Message objects MAY contain an attestation property, and if present its value
 	// MUST be an object, as defined by the Signed Data section of this specification.
