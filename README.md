@@ -6,6 +6,7 @@ The new Zion relay server for decentralized social media and messaging.
 - Decentralized message & media storage via [Decentralized Web Nodes](https://identity.foundation/decentralized-web-node/spec/)
 - Account system for Bitcoin micropayments via Lightning
   - Connects to a funding source - initially [LND](https://github.com/lightningnetwork/lnd)
+  - Adapted from [lnbits-infinity](https://github.com/lnbits/lnbits-infinity)
 
 ## Tech Stack
 - [Go](https://go.dev/) - v1.17
