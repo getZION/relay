@@ -33,6 +33,7 @@ func Test_User_Get(t *testing.T) {
 		{
 			name: "should return 2 user",
 			message: &dwn.Message{
+				Data: `{"Model": "Zion.User.V1"}`,
 				Descriptor: &dwn.MessageDescriptor{
 					ObjectId: OBJECT_ID,
 					Method:   constants.COLLECTIONS_QUERY,

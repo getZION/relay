@@ -34,7 +34,9 @@ func CollectionsQuery(context *handler.RequestContext) ([]string, *errors.Messag
 
 	//todo: check data & dataFormat only for application/json or do we need provide other formats?
 
-	messageHandler, err := context.ModelManager.GetModelHandler(context.Message.Descriptor.Schema)
+	var parsedData ParsedData
+	json.Unmarshal([]byte(context.Message.Data), &parsedData)
+	messageHandler, err := context.ModelManager.GetModelHandler(parsedData.Model)
 	if err != nil {
 		return nil, errors.NewMessageLevelError(400, err.Error(), err)
 	}

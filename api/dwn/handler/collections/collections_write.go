@@ -7,7 +7,6 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/getzion/relay/api/constants"
 	"github.com/getzion/relay/api/dwn/errors"
 	"github.com/getzion/relay/api/dwn/handler"
 
@@ -64,12 +63,6 @@ func CollectionsWrite(context *handler.RequestContext) ([]string, *errors.Messag
 	// Ensure this data object has a valid model. (Replacing previous schema handling)
 	var parsedData ParsedData
 	json.Unmarshal([]byte(context.Message.Data), &parsedData)
-	fmt.Printf("Data model: %s", parsedData.Model)
-	if parsedData.Model != constants.ZION_USER_MODEL {
-		err = fmt.Errorf("data must include a valid model object")
-		return nil, errors.NewMessageLevelError(400, err.Error(), err)
-	}
-
 	modelHandler, err := context.ModelManager.GetModelHandler(parsedData.Model)
 	if err != nil {
 		return nil, errors.NewMessageLevelError(400, err.Error(), err)
