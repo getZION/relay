@@ -1,6 +1,13 @@
-package api
+package constants
 
 const (
+	ZION_USER_MODEL = "Zion.User.V1"
+
+	COMMUNITY    = "Community"
+	CONVERSATION = "Conversation"
+	PAYMENT      = "Payment"
+	PERSON       = "Person"
+
 	ZION_JOIN_COMMUNITY      = "ZionJoinCommunity"
 	ZION_LEAVE_COMMUNITY     = "ZionLeaveCommunity"
 	ZION_COMMUNITY_KICK_USER = "ZionCommunityKickUser"

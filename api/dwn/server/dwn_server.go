@@ -1,19 +1,26 @@
-package api
+package server
 
 import (
+	"github.com/getzion/relay/api"
 	"github.com/getzion/relay/api/dwn"
-	"github.com/getzion/relay/api/handler"
+	"github.com/getzion/relay/api/dwn/handler"
+	"github.com/getzion/relay/api/models"
 
 	. "github.com/getzion/relay/utils"
 	"github.com/gofiber/fiber/v2"
 )
 
 type DWNServer struct {
-	app *fiber.App
+	app          *fiber.App
+	modelManager *models.ModelManager
+	storage      api.Storage
 }
 
-func InitDWNServer() *DWNServer {
-	dwnServer := &DWNServer{}
+func InitDWNServer(modelManager *models.ModelManager, storage api.Storage) *DWNServer {
+	dwnServer := &DWNServer{
+		modelManager: modelManager,
+		storage:      storage,
+	}
 	app := fiber.New(fiber.Config{})
 	app.Post("/", dwnServer.Process)
 	dwnServer.app = app
@@ -43,7 +50,8 @@ func (dwnServer *DWNServer) Process(ctx *fiber.Ctx) error {
 
 	for _, message := range request.Messages {
 		context := handler.RequestContext{
-			// SchemaManager: identityHub.schemaManager,
+			// ModelManager: identityHub.modelManager,
+			// ModelManager: dwn
 			Message: message,
 		}
 

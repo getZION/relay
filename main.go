@@ -4,12 +4,12 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/getzion/relay/api"
+	"github.com/getzion/relay/api/dwn/server"
 	"github.com/sirupsen/logrus"
 )
 
 func main() {
-	server := api.InitDWNServer()
+	server := server.InitDWNServer()
 	host := os.Getenv("HOST")
 	port := os.Getenv("PORT")
 	logrus.Fatal(server.Listen(fmt.Sprintf("%s:%s", host, port)))
