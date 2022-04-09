@@ -82,9 +82,3 @@ func (c *RequestContext) VerifyRequest(publicKey *ecdsa.PublicKey) (bool, *error
 		return true, nil
 	}
 }
-
-func (c *RequestContext) VerifyRequestOld(signedString string, publicKey *ecdsa.PublicKey) (bool, *errors.MessageLevelError) {
-	verified, err := jws.Verify([]byte(signedString), jwa.ES256K, publicKey)
-	fmt.Printf("verified: %v, error:%v", verified, err)
-	return false, nil
-}
