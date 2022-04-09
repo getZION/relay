@@ -70,12 +70,12 @@ func CollectionsWrite(context *handler.RequestContext) ([]string, *errors.Messag
 		return nil, errors.NewMessageLevelError(400, err.Error(), err)
 	}
 
-	schemaHandler, err := context.ModelManager.GetModelHandler(parsedData.Model)
+	modelHandler, err := context.ModelManager.GetModelHandler(parsedData.Model)
 	if err != nil {
 		return nil, errors.NewMessageLevelError(400, err.Error(), err)
 	}
 
-	data, err := schemaHandler.Execute([]byte(context.Message.Data), context.Message.Descriptor.Method)
+	data, err := modelHandler.Execute([]byte(context.Message.Data), context.Message.Descriptor.Method)
 	if err != nil {
 		return nil, errors.NewMessageLevelError(400, err.Error(), err)
 	}
