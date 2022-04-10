@@ -10,12 +10,15 @@ import (
 	"github.com/getzion/relay/api/dwn/errors"
 	"github.com/getzion/relay/api/dwn/handler"
 
-	// . "github.com/getzion/relay/utils"
+	. "github.com/getzion/relay/utils"
 	"github.com/google/uuid"
 )
 
 type ParsedData struct {
 	Model string
+	// Name     string `json:"name"`
+	// Username string `json:"username,omitempty"`
+	// Did      string
 }
 
 func CollectionsWrite(context *handler.RequestContext) ([]string, *errors.MessageLevelError) {
@@ -62,7 +65,17 @@ func CollectionsWrite(context *handler.RequestContext) ([]string, *errors.Messag
 
 	// Ensure this data object has a valid model. (Replacing previous schema handling)
 	var parsedData ParsedData
-	json.Unmarshal([]byte(context.Message.Data), &parsedData)
+	// decodedData, _ := base64.StdEncoding.DecodeString(context.Message.Data)
+	json.Unmarshal([]byte(context.Message.Data), &parsedData) // decodedData
+	Log.Debug().
+		Str("HM Model", parsedData.Model).
+		// Str("Username", parsedData.Name).
+		// Str("Model", parsedData.Model).
+		// Str("Username", parsedData.Username).
+		Msg("Parsed data model:")
+	Log.Debug().Str("Data", context.Message.Data).Msg("The data...")
+	Log.Debug().Str("Method", context.Message.Descriptor.Method).Msg("The descriptor method")
+
 	modelHandler, err := context.ModelManager.GetModelHandler(parsedData.Model)
 	if err != nil {
 		return nil, errors.NewMessageLevelError(400, err.Error(), err)
