@@ -10,7 +10,7 @@ const (
 	InterfaceNotImplementedErrorMessage string = "The interface method is not implemented"
 	AuthorizationFailedErrorMessage     string = "The message failed authorization requirements"
 
-	MessageSuccessfullyMessage string = "The message was successfully processed"
+	MessageSuccessfulMessage string = "The message was successfully processed"
 )
 
 type MessageLevelError struct {
