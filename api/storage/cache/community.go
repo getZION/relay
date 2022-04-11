@@ -12,7 +12,6 @@ func (c *cacheStorage) GetCommunities() ([]api.Community, error) {
 	for obj := iterator.Next(); obj != nil; obj = iterator.Next() {
 		c := obj.(*api.Community)
 		communities = append(communities, *c)
-
 	}
 
 	return communities, nil

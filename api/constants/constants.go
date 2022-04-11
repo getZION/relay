@@ -1,7 +1,9 @@
 package constants
 
 const (
-	ZION_USER_MODEL = "Zion.User.V1"
+	ZION_COMMUNITY_MODEL    = "Zion.Community.V1"
+	ZION_CONVERSATION_MODEL = "Zion.Conversation.V1"
+	ZION_USER_MODEL         = "Zion.User.V1"
 
 	COMMUNITY    = "Community"
 	CONVERSATION = "Conversation"

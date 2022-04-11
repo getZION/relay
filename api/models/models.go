@@ -19,9 +19,10 @@ type ModelHandler interface {
 func NewModelManager(storage api.Storage) *ModelManager {
 	methodHandler := &ModelManager{
 		handlers: map[string]ModelHandler{
-			constants.ZION_USER_MODEL: handler.InitUserHandler(storage),
-			// constants.COMMUNITY:                handler.InitCommunityHandler(storage),
-			// constants.CONVERSATION:             handler.InitConversationHandler(storage),
+			constants.ZION_CONVERSATION_MODEL: handler.InitConversationHandler(storage),
+			constants.ZION_COMMUNITY_MODEL:    handler.InitCommunityHandler(storage),
+			constants.ZION_USER_MODEL:         handler.InitUserHandler(storage),
+
 			// constants.PAYMENT:                  handler.InitPaymentHandler(storage),
 			// constants.PERSON:
 			// constants.ZION_JOIN_COMMUNITY:      handler.InitCommunityJoinHandler(storage),
