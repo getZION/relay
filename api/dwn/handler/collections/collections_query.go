@@ -1,6 +1,7 @@
 package collections
 
 import (
+	"encoding/base64"
 	"encoding/json"
 	"fmt"
 	"reflect"
@@ -8,6 +9,7 @@ import (
 	"github.com/gabriel-vasile/mimetype"
 	"github.com/getzion/relay/api/dwn/errors"
 	"github.com/getzion/relay/api/dwn/handler"
+	. "github.com/getzion/relay/utils"
 	"github.com/google/uuid"
 )
 
@@ -34,14 +36,28 @@ func CollectionsQuery(context *handler.RequestContext) ([]string, *errors.Messag
 
 	//todo: check data & dataFormat only for application/json or do we need provide other formats?
 
+	// var parsedData ParsedData
+	// json.Unmarshal([]byte(context.Message.Data), &parsedData)
 	var parsedData ParsedData
-	json.Unmarshal([]byte(context.Message.Data), &parsedData)
+	decodedData, _ := base64.StdEncoding.DecodeString(context.Message.Data)
+
+	if err := json.Unmarshal(decodedData, &parsedData); err != nil {
+		if err.Error() == "unexpected end of JSON input" {
+			decodedData = []byte(string(decodedData) + "\"}")
+			json.Unmarshal(decodedData, &parsedData)
+			Log.Info().Str("wat", string(decodedData)+"\"}").Msg("Retrying with closing brace")
+		} else {
+			Log.Err(err).Str("error msg?", err.Error()).Msg("Error unmarshaling decodedData.")
+			panic(err)
+		}
+	}
+
 	messageHandler, err := context.ModelManager.GetModelHandler(parsedData.Model)
 	if err != nil {
 		return nil, errors.NewMessageLevelError(400, err.Error(), err)
 	}
 
-	data, err := messageHandler.Execute([]byte(context.Message.Data), context.Message.Descriptor.Method)
+	data, err := messageHandler.Execute(decodedData, context.Message.Descriptor.Method)
 	if err != nil {
 		return nil, errors.NewMessageLevelError(500, err.Error(), err)
 	}
