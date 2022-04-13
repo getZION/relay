@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 
+	"github.com/getzion/relay/api"
 	"github.com/getzion/relay/api/dwn/server"
 	"github.com/getzion/relay/api/models"
 	"github.com/getzion/relay/api/storage"
@@ -12,6 +13,9 @@ import (
 )
 
 func main() {
+	api.Testo()
+	return
+
 	validator.InitValidator()
 
 	storage, err := storage.NewStorage("mysql")
