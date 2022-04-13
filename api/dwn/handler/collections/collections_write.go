@@ -11,15 +11,11 @@ import (
 	"github.com/getzion/relay/api/dwn/errors"
 	"github.com/getzion/relay/api/dwn/handler"
 
-	. "github.com/getzion/relay/utils"
 	"github.com/google/uuid"
 )
 
 type ParsedData struct {
 	Model string
-	// Name     string
-	// Username string
-	// Did      string
 }
 
 func CollectionsWrite(context *handler.RequestContext) ([]string, *errors.MessageLevelError) {
@@ -67,32 +63,10 @@ func CollectionsWrite(context *handler.RequestContext) ([]string, *errors.Messag
 	// Ensure this data object has a valid model. (Replacing previous schema handling)
 	var parsedData ParsedData
 	decodedData, _ := base64.StdEncoding.DecodeString(context.Message.Data)
-	// json.Unmarshal([]byte(decodedData), &parsedData)
 
 	if err := json.Unmarshal(decodedData, &parsedData); err != nil {
-		if err.Error() == "unexpected end of JSON input" {
-			Log.Info().Str("previous", string(decodedData)).Msg("before adding closing brace")
-			decodedData = []byte(string(decodedData) + "\"}")
-			json.Unmarshal(decodedData, &parsedData)
-			Log.Info().Str("wat", string(decodedData)+"\"}").Msg("Retrying with closing brace")
-		} else {
-			Log.Err(err).Str("error msg?", err.Error()).Msg("Error unmarshaling decodedData.")
-			panic(err)
-		}
+		return nil, errors.NewMessageLevelError(400, err.Error(), err)
 	}
-
-	// Log.Debug().Str("HERE?", "HI").Msg("decoded")
-	Log.Debug().Str("decoded", fmt.Sprintf("decoded data: %s", decodedData)).Msg("decoded")
-	Log.Debug().Str("parsedData", fmt.Sprintf("parsedData data: %s", parsedData)).Msg("parsed")
-
-	Log.Debug().
-		Str("Model", parsedData.Model)
-		// Str("Name", parsedData.Name).
-		// Str("Did", parsedData.Did).
-		// Str("Username", parsedData.Username).
-		// Msg("Parsed data model:")
-	Log.Debug().Str("Data", context.Message.Data).Msg("The data...")
-	Log.Debug().Str("Method", context.Message.Descriptor.Method).Msg("The descriptor method")
 
 	modelHandler, err := context.ModelManager.GetModelHandler(parsedData.Model)
 	if err != nil {
