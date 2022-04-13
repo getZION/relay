@@ -9,12 +9,10 @@ import (
 	"github.com/gabriel-vasile/mimetype"
 	"github.com/getzion/relay/api/dwn/errors"
 	"github.com/getzion/relay/api/dwn/handler"
-	. "github.com/getzion/relay/utils"
 	"github.com/google/uuid"
 )
 
 func CollectionsQuery(context *handler.RequestContext) ([]string, *errors.MessageLevelError) {
-
 	var err error
 
 	if _, err = uuid.Parse(context.Message.Descriptor.ObjectId); err != nil {
@@ -34,22 +32,11 @@ func CollectionsQuery(context *handler.RequestContext) ([]string, *errors.Messag
 		return nil, errors.NewMessageLevelError(400, err.Error(), err)
 	}
 
-	//todo: check data & dataFormat only for application/json or do we need provide other formats?
-
-	// var parsedData ParsedData
-	// json.Unmarshal([]byte(context.Message.Data), &parsedData)
 	var parsedData ParsedData
 	decodedData, _ := base64.StdEncoding.DecodeString(context.Message.Data)
 
 	if err := json.Unmarshal(decodedData, &parsedData); err != nil {
-		if err.Error() == "unexpected end of JSON input" {
-			decodedData = []byte(string(decodedData) + "\"}")
-			json.Unmarshal(decodedData, &parsedData)
-			Log.Info().Str("wat", string(decodedData)+"\"}").Msg("Retrying with closing brace")
-		} else {
-			Log.Err(err).Str("error msg?", err.Error()).Msg("Error unmarshaling decodedData.")
-			panic(err)
-		}
+		return nil, errors.NewMessageLevelError(400, err.Error(), err)
 	}
 
 	messageHandler, err := context.ModelManager.GetModelHandler(parsedData.Model)
