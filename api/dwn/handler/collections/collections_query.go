@@ -1,6 +1,7 @@
 package collections
 
 import (
+	"encoding/base64"
 	"encoding/json"
 	"fmt"
 	"reflect"
@@ -12,7 +13,6 @@ import (
 )
 
 func CollectionsQuery(context *handler.RequestContext) ([]string, *errors.MessageLevelError) {
-
 	var err error
 
 	if _, err = uuid.Parse(context.Message.Descriptor.ObjectId); err != nil {
@@ -32,16 +32,19 @@ func CollectionsQuery(context *handler.RequestContext) ([]string, *errors.Messag
 		return nil, errors.NewMessageLevelError(400, err.Error(), err)
 	}
 
-	//todo: check data & dataFormat only for application/json or do we need provide other formats?
-
 	var parsedData ParsedData
-	json.Unmarshal([]byte(context.Message.Data), &parsedData)
+	decodedData, _ := base64.StdEncoding.DecodeString(context.Message.Data)
+
+	if err := json.Unmarshal(decodedData, &parsedData); err != nil {
+		return nil, errors.NewMessageLevelError(400, err.Error(), err)
+	}
+
 	messageHandler, err := context.ModelManager.GetModelHandler(parsedData.Model)
 	if err != nil {
 		return nil, errors.NewMessageLevelError(400, err.Error(), err)
 	}
 
-	data, err := messageHandler.Execute([]byte(context.Message.Data), context.Message.Descriptor.Method)
+	data, err := messageHandler.Execute(decodedData, context.Message.Descriptor.Method)
 	if err != nil {
 		return nil, errors.NewMessageLevelError(500, err.Error(), err)
 	}
