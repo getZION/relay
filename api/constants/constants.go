@@ -1,17 +1,17 @@
 package constants
 
 const (
-	ZION_COMMUNITY_MODEL    = "Zion.Community.V1"
-	ZION_CONVERSATION_MODEL = "Zion.Conversation.V1"
-	ZION_USER_MODEL         = "Zion.User.V1"
+	ZION_COMMUNITY       = "Zion.Community.V1"
+	ZION_CONVERSATION    = "Zion.Conversation.V1"
+	ZION_JOIN_COMMUNITY  = "Zion.JoinCommunity.V1"
+	ZION_LEAVE_COMMUNITY = "Zion.LeaveCommunity.V1"
+	ZION_USER            = "Zion.User.V1"
 
 	COMMUNITY    = "Community"
 	CONVERSATION = "Conversation"
 	PAYMENT      = "Payment"
 	PERSON       = "Person"
 
-	ZION_JOIN_COMMUNITY      = "ZionJoinCommunity"
-	ZION_LEAVE_COMMUNITY     = "ZionLeaveCommunity"
 	ZION_COMMUNITY_KICK_USER = "ZionCommunityKickUser"
 	ZION_COMMENT             = "ZionComment"
 
