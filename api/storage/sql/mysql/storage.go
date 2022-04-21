@@ -29,12 +29,12 @@ func NewMySqlStorage() (*mysqlStorage, error) {
 	envconfig.Process("", &params)
 
 	databaseConnectionString := fmt.Sprintf("%s:%s@tcp(%s)/%s?multiStatements=true", params.User, params.Pass, params.Host, params.Name)
-	logrus.Infof("Connecting to MySQL database: %s", databaseConnectionString)
 
 	db, err := sql.Open("mysql", databaseConnectionString)
 	if err != nil {
 		return nil, err
 	}
+	logrus.Infof("Connected to MySQL database")
 
 	connection := mysqlStorage{
 		Connection: common.NewStore(db, sq.StatementBuilder.RunWith(sq.NewStmtCache(db))),
