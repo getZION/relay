@@ -1,7 +1,10 @@
 package api
 
+import "gorm.io/gorm"
+
 type (
 	Community struct {
+		gorm.Model
 		Id              int64           `json:"id,omitempty"`
 		Zid             string          `json:"zid"`
 		Name            string          `json:"name" validate:"required,max=150"`
@@ -22,6 +25,7 @@ type (
 	}
 
 	Conversation struct {
+		gorm.Model
 		Id           int64     `json:"id,omitempty"`
 		Zid          string    `json:"zid"`
 		CommunityZid string    `json:"communityZid" validate:"required"`
@@ -39,6 +43,7 @@ type (
 	}
 
 	Comment struct {
+		gorm.Model
 		Id              int64  `json:"id,omitempty"`
 		Zid             string `json:"zid"`
 		UserDid         string `json:"userDid" validate:"required"`
@@ -61,6 +66,7 @@ type (
 	}
 
 	User struct {
+		gorm.Model
 		Id             int64  `json:"id,omitempty"`
 		Did            string `json:"did" validate:"required"`
 		Username       string `json:"username" validate:"required,username,min=6,max=16"`
@@ -83,6 +89,7 @@ type (
 	}
 
 	Payment struct {
+		gorm.Model
 		Id                  int64
 		Amount              int64
 		Memo                string
