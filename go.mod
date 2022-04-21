@@ -17,7 +17,8 @@ require (
 	github.com/lestrrat-go/jwx v1.2.22
 	github.com/rs/zerolog v1.26.1
 	github.com/sirupsen/logrus v1.8.1
-	gorm.io/gorm v1.21.4
+	gorm.io/driver/mysql v1.3.3
+	gorm.io/gorm v1.23.1
 )
 
 require (
@@ -35,7 +36,7 @@ require (
 	github.com/hashicorp/go-multierror v1.1.0 // indirect
 	github.com/hashicorp/golang-lru v0.5.4 // indirect
 	github.com/jinzhu/inflection v1.0.0 // indirect
-	github.com/jinzhu/now v1.1.1 // indirect
+	github.com/jinzhu/now v1.1.4 // indirect
 	github.com/klauspost/compress v1.15.1 // indirect
 	github.com/lann/builder v0.0.0-20180802200727-47ae307949d0 // indirect
 	github.com/lann/ps v0.0.0-20150810152359-62de8c46ede0 // indirect
