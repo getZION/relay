@@ -20,6 +20,7 @@ type User struct {
 	Created  int64  `json:"created,omitempty"`
 	Did      string `json:"did" validate:"required" gorm:"primary_key;unique;not null"`
 	Img      string `json:"img,omitempty"`
+	ImgCover string `json:"imgCover,omitempty"`
 	Link     string `json:"link,omitempty"`
 	Location string `json:"location,omitempty"`
 	Name     string `json:"name" validate:"required" gorm:"not null"`
