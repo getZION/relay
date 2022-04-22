@@ -29,7 +29,7 @@ func NewMySqlStorage() (*gorm.DB, error) {
 	if err != nil {
 		return nil, err
 	}
-	logrus.Infof("Connected to MySQL database")
+	logrus.Infof("Connected to MySQL database.")
 
 	return db, nil
 }
