@@ -1,10 +1,7 @@
 package api
 
-import "gorm.io/gorm"
-
 type (
-	Community struct {
-		gorm.Model
+	CommunityOld struct {
 		Id              int64    `json:"id,omitempty"`
 		Zid             string   `json:"zid"`
 		Name            string   `json:"name" validate:"required,max=150"`
@@ -24,8 +21,7 @@ type (
 		// Users           []UserCommunity `json:"users,omitempty"`
 	}
 
-	Conversation struct {
-		gorm.Model
+	ConversationOld struct {
 		Id           int64  `json:"id,omitempty"`
 		Zid          string `json:"zid"`
 		CommunityZid string `json:"communityZid" validate:"required"`
@@ -42,8 +38,7 @@ type (
 		// Comments     []Comment `json:"comments,omitempty"`
 	}
 
-	Comment struct {
-		gorm.Model
+	CommentOld struct {
 		Id              int64  `json:"id,omitempty"`
 		Zid             string `json:"zid"`
 		UserDid         string `json:"userDid" validate:"required"`
@@ -55,18 +50,17 @@ type (
 		Deleted         Bool   `json:"deleted,omitempty"`
 	}
 
-	JoinCommunity struct {
+	JoinCommunityOld struct {
 		UserDid      string `json:"userDid" validate:"required"`
 		CommunityZid string `json:"communityZid" validate:"required"`
 	}
 
-	LeaveCommunity struct {
+	LeaveCommunityOld struct {
 		UserDid      string `json:"userDid" validate:"required"`
 		CommunityZid string `json:"communityZid" validate:"required"`
 	}
 
-	User struct {
-		gorm.Model
+	UserOld struct {
 		Id             int64  `json:"id,omitempty"`
 		Did            string `json:"did" validate:"required"`
 		Username       string `json:"username" validate:"required,username,min=6,max=16"`
@@ -79,7 +73,7 @@ type (
 		Updated        int64  `json:"updated,omitempty"`
 	}
 
-	UserCommunity struct {
+	UserCommunityOld struct {
 		Id           string `json:"id,omitempty"`
 		UserDid      string `json:"userDid"`
 		CommunityZid string `json:"communityZid"`
@@ -88,8 +82,7 @@ type (
 		LeftReason   string `json:"leftReason,omitempty"`
 	}
 
-	Payment struct {
-		gorm.Model
+	PaymentOld struct {
 		Id                  int64
 		Amount              int64
 		Memo                string
