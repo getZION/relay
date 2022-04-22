@@ -7,9 +7,9 @@ import (
 	"github.com/btcsuite/btcd/btcec/v2"
 	"github.com/decred/base58"
 	"github.com/getzion/relay/api/dwn/errors"
-	. "github.com/getzion/relay/utils"
 	"github.com/lestrrat-go/jwx/jwa"
 	"github.com/lestrrat-go/jwx/jws"
+	"github.com/sirupsen/logrus"
 )
 
 // Get the public key from the attestation DID.
@@ -39,9 +39,7 @@ func (c *RequestContext) GetPublicKey() (*ecdsa.PublicKey, *errors.MessageLevelE
 	if err != nil {
 		return nil, errors.NewMessageLevelError(400, "Invalid pubkey", nil)
 	} else {
-		Log.Info().
-			Bool("compressed", btcec.IsCompressedPubKey(pubKeyBytes)).
-			Msg("Received valid pubkey")
+		logrus.Debug("Received valid pubkey")
 	}
 
 	// Convert the secp256k1 key to an ECDSA key.
