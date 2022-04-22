@@ -1,8 +1,6 @@
 package mysql
 
 import (
-	"fmt"
-
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 
@@ -11,10 +9,11 @@ import (
 )
 
 type mysqlConnectionParams struct {
-	Host string `envconfig:"DB_HOST"`
-	Name string `envconfig:"DB_NAME"`
-	User string `envconfig:"DB_USER"`
-	Pass string `envconfig:"DB_PASS"`
+	Host        string `envconfig:"DB_HOST"`
+	Name        string `envconfig:"DB_NAME"`
+	User        string `envconfig:"DB_USER"`
+	Pass        string `envconfig:"DB_PASS"`
+	DatabaseUrl string `envconfig:"DATABASE_URL"`
 }
 
 func NewMySqlStorage() (*gorm.DB, error) {
@@ -22,7 +21,8 @@ func NewMySqlStorage() (*gorm.DB, error) {
 	var params mysqlConnectionParams
 	envconfig.Process("", &params)
 
-	databaseConnectionString := fmt.Sprintf("%s:%s@tcp(%s)/%s?multiStatements=true", params.User, params.Pass, params.Host, params.Name)
+	// databaseConnectionString := fmt.Sprintf("%s:%s@tcp(%s)/%s?multiStatements=true", params.User, params.Pass, params.Host, params.Name)
+	databaseConnectionString := params.DatabaseUrl
 
 	db, err := gorm.Open(mysql.Open(databaseConnectionString), &gorm.Config{})
 
