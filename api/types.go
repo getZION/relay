@@ -5,41 +5,41 @@ import "gorm.io/gorm"
 type (
 	Community struct {
 		gorm.Model
-		Id              int64           `json:"id,omitempty"`
-		Zid             string          `json:"zid"`
-		Name            string          `json:"name" validate:"required,max=150"`
-		OwnerDid        string          `json:"ownerDid" validate:"required"`
-		OwnerUsername   string          `json:"ownerUsername" validate:"required"`
-		Description     string          `json:"description" validate:"max=250"`
-		EscrowAmount    int64           `json:"escrowAmount" validate:"gte=0,lt=100000"`
-		Img             string          `json:"img,omitempty"`
-		LastActive      int64           `json:"lastActive,omitempty"`
-		PricePerMessage int64           `json:"pricePerMessage" validate:"gte=0,lt=100000"`
-		PriceToJoin     int64           `json:"priceToJoin" validate:"gte=0,lt=100000"`
-		Public          Bool            `json:"public,omitempty"`
-		Created         int64           `json:"created,omitempty"`
-		Updated         int64           `json:"updated,omitempty"`
-		Deleted         Bool            `json:"deleted,omitempty"`
-		Tags            []string        `json:"tags,omitempty" validate:"max=5"`
-		Users           []UserCommunity `json:"users,omitempty"`
+		Id              int64    `json:"id,omitempty"`
+		Zid             string   `json:"zid"`
+		Name            string   `json:"name" validate:"required,max=150"`
+		OwnerDid        string   `json:"ownerDid" validate:"required"`
+		OwnerUsername   string   `json:"ownerUsername" validate:"required"`
+		Description     string   `json:"description" validate:"max=250"`
+		EscrowAmount    int64    `json:"escrowAmount" validate:"gte=0,lt=100000"`
+		Img             string   `json:"img,omitempty"`
+		LastActive      int64    `json:"lastActive,omitempty"`
+		PricePerMessage int64    `json:"pricePerMessage" validate:"gte=0,lt=100000"`
+		PriceToJoin     int64    `json:"priceToJoin" validate:"gte=0,lt=100000"`
+		Public          Bool     `json:"public,omitempty"`
+		Created         int64    `json:"created,omitempty"`
+		Updated         int64    `json:"updated,omitempty"`
+		Deleted         Bool     `json:"deleted,omitempty"`
+		Tags            []string `json:"tags,omitempty" validate:"max=5"`
+		// Users           []UserCommunity `json:"users,omitempty"`
 	}
 
 	Conversation struct {
 		gorm.Model
-		Id           int64     `json:"id,omitempty"`
-		Zid          string    `json:"zid"`
-		CommunityZid string    `json:"communityZid" validate:"required"`
-		UserDid      string    `json:"userDid" validate:"required"`
-		Text         string    `json:"text,omitempty" validate:"required_without=Link"`
-		Link         string    `json:"link,omitempty" validate:"required_without=Text"`
-		Img          string    `json:"img,omitempty"`
-		Video        string    `json:"video,omitempty"`
-		Public       Bool      `json:"public,omitempty"`
-		PublicPrice  int64     `json:"publicPrice,omitempty"`
-		Created      int64     `json:"created,omitempty"`
-		Updated      int64     `json:"updated,omitempty"`
-		Deleted      Bool      `json:"deleted,omitempty"`
-		Comments     []Comment `json:"comments,omitempty"`
+		Id           int64  `json:"id,omitempty"`
+		Zid          string `json:"zid"`
+		CommunityZid string `json:"communityZid" validate:"required"`
+		UserDid      string `json:"userDid" validate:"required"`
+		Text         string `json:"text,omitempty" validate:"required_without=Link"`
+		Link         string `json:"link,omitempty" validate:"required_without=Text"`
+		Img          string `json:"img,omitempty"`
+		Video        string `json:"video,omitempty"`
+		Public       Bool   `json:"public,omitempty"`
+		PublicPrice  int64  `json:"publicPrice,omitempty"`
+		Created      int64  `json:"created,omitempty"`
+		Updated      int64  `json:"updated,omitempty"`
+		Deleted      Bool   `json:"deleted,omitempty"`
+		// Comments     []Comment `json:"comments,omitempty"`
 	}
 
 	Comment struct {
