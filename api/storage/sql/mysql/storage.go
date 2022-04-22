@@ -11,11 +11,10 @@ import (
 )
 
 type mysqlConnectionParams struct {
-	Host        string `envconfig:"DB_HOST"`
-	Name        string `envconfig:"DB_NAME"`
-	User        string `envconfig:"DB_USER"`
-	Pass        string `envconfig:"DB_PASS"`
-	DatabaseUrl string `envconfig:"DATABASE_URL"`
+	Host string `envconfig:"DB_HOST"`
+	Name string `envconfig:"DB_NAME"`
+	User string `envconfig:"DB_USER"`
+	Pass string `envconfig:"DB_PASS"`
 }
 
 func NewMySqlStorage() (*gorm.DB, error) {
@@ -23,10 +22,7 @@ func NewMySqlStorage() (*gorm.DB, error) {
 	var params mysqlConnectionParams
 	envconfig.Process("", &params)
 
-	databaseConnectionString := fmt.Sprintf("%s:%s@tcp(%s:25060)/%s", params.User, params.Pass, params.Host, params.Name) // multiStatements=true //?ssl-mode=REQUIRED
-	databaseConnectionString2 := params.DatabaseUrl
-	logrus.Infof("Comparing 1: %s", databaseConnectionString)
-	logrus.Infof("Comparing 2: %s", databaseConnectionString2)
+	databaseConnectionString := fmt.Sprintf("%s:%s@tcp(%s:25060)/%s?multiStatements=true", params.User, params.Pass, params.Host, params.Name)
 
 	db, err := gorm.Open(mysql.Open(databaseConnectionString), &gorm.Config{})
 
