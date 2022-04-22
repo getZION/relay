@@ -15,7 +15,6 @@ require (
 	github.com/hashicorp/go-memdb v1.3.2
 	github.com/kelseyhightower/envconfig v1.4.0
 	github.com/lestrrat-go/jwx v1.2.22
-	github.com/rs/zerolog v1.26.1
 	github.com/sirupsen/logrus v1.8.1
 	gorm.io/driver/mysql v1.3.3
 	gorm.io/gorm v1.23.1
