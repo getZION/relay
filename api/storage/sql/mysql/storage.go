@@ -23,7 +23,7 @@ func NewMySqlStorage() (*gorm.DB, error) {
 	var params mysqlConnectionParams
 	envconfig.Process("", &params)
 
-	databaseConnectionString := fmt.Sprintf("%s:%s@tcp(%s)/%s?multiStatements=true", params.User, params.Pass, params.Host, params.Name)
+	databaseConnectionString := fmt.Sprintf("%s:%s@tcp(%s:25060)/%s?multiStatements=true&ssl-mode=REQUIRED", params.User, params.Pass, params.Host, params.Name)
 	databaseConnectionString2 := params.DatabaseUrl
 	logrus.Infof("Comparing 1: %s", databaseConnectionString)
 	logrus.Infof("Comparing 2: %s", databaseConnectionString2)
