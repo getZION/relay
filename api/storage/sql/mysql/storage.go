@@ -6,6 +6,7 @@ import (
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 
+	"github.com/getzion/relay/api"
 	"github.com/kelseyhightower/envconfig"
 	"github.com/sirupsen/logrus"
 )
@@ -29,7 +30,14 @@ func NewMySqlStorage() (*gorm.DB, error) {
 	if err != nil {
 		return nil, err
 	}
-	logrus.Infof("Connected to MySQL database.")
+	logrus.Info("Connected to MySQL database.")
+
+	db.AutoMigrate(
+		&api.Community{},
+		&api.Conversation{},
+		&api.User{},
+	)
+	logrus.Info("Migrations successful.")
 
 	return db, nil
 }
