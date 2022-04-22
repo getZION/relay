@@ -14,3 +14,8 @@ type Community struct {
 	Updated         int64  `json:"updated,omitempty"`
 	Zid             string `json:"zid" gorm:"primary_key;unique;not null"`
 }
+
+type Comment struct{}
+type Conversation struct{}
+type Payment struct{}
+type User struct{}
