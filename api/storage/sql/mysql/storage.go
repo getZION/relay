@@ -34,8 +34,8 @@ func NewMySqlStorage() (*gorm.DB, error) {
 
 	db.AutoMigrate(
 		&api.Community{},
-	// &api.Conversation{},
-	// &api.User{},
+		// &api.Conversation{},
+		&api.User{},
 	)
 	logrus.Info("Migrations successful.")
 
