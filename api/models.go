@@ -22,6 +22,7 @@ type Conversation struct {
 	Img          string `json:"img,omitempty"`
 	Link         string `json:"link,omitempty" validate:"required_without=Text"`
 	Text         string `json:"text,omitempty" validate:"required_without=Link"`
+	Title        string `json:"title,omitempty"`
 	Updated      int64  `json:"updated,omitempty"`
 	UserDid      string `json:"userDid" validate:"required"`
 	Zid          string `json:"zid" gorm:"primary_key;unique;not null"`
