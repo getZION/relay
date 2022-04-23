@@ -70,3 +70,5 @@ type Payment struct {
 	Type                int64  `json:"type,omitempty"`
 	Zid                 string `json:"zid" gorm:"primary_key;unique;not null"`
 }
+
+type Comment struct{}
