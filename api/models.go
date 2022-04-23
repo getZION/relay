@@ -32,8 +32,8 @@ type Conversation struct {
 }
 
 type Message struct {
-	ConversationZid   string `json:"conversationZid,omitempty"`
-	CommunityZid      string `json:"communityZid,omitempty"`
+	ConversationZid   string `json:"conversationZid,omitempty" gorm:"size:191"`
+	CommunityZid      string `json:"communityZid,omitempty" gorm:"size:191"`
 	Created           int64  `json:"created,omitempty" gorm:"not null"`
 	Deleted           Bool   `json:"deleted,omitempty" gorm:"default:false"`
 	Img               string `json:"img,omitempty"`
