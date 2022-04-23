@@ -42,4 +42,16 @@ type User struct {
 }
 
 type Comment struct{}
-type Payment struct{}
+
+type Payment struct {
+	Amount              int64  `json:"amount,omitempty"`
+	Memo                string `json:"memo,omitempty"`
+	MessageZid          string `json:"messageZid,omitempty"`
+	RecipientDid        string `json:"recipientDid,omitempty"`
+	RecipientNodePubkey string `json:"recipientNodePubkey,omitempty"`
+	RecipientRelayUrl   string `json:"recipientRelayUrl,omitempty"`
+	SenderDid           string `json:"senderDid,omitempty"`
+	Status              string `json:"status,omitempty"`
+	Type                int64  `json:"type,omitempty"`
+	Zid                 string `json:"zid" gorm:"primary_key;unique;not null"`
+}
