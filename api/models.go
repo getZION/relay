@@ -28,6 +28,21 @@ type Conversation struct {
 	Zid          string `json:"zid" gorm:"primary_key;unique;not null"`
 }
 
+type Message struct {
+	ConversationZid   string `json:"conversationZid,omitempty"`
+	CommunityZid      string `json:"communityZid,omitempty"`
+	Created           int64  `json:"created,omitempty" gorm:"not null"`
+	Deleted           Bool   `json:"deleted,omitempty" gorm:"default:false"`
+	Img               string `json:"img,omitempty"`
+	Link              string `json:"link,omitempty" validate:"required_without=Text"`
+	ReceivingUserDid  string `json:"receivingUserDid,omitempty"`
+	ReplyToMessageZid string `json:"replyToMessageZid,omitempty"`
+	Text              string `json:"text,omitempty" validate:"required_without=Link"`
+	Updated           int64  `json:"updated,omitempty"`
+	UserDid           string `json:"userDid,omitempty"`
+	Zid               string `json:"zid" gorm:"primary_key;unique;not null"`
+}
+
 type User struct {
 	Bio      string `json:"bio,omitempty"`
 	Created  int64  `json:"created,omitempty"`
@@ -40,8 +55,6 @@ type User struct {
 	Updated  int64  `json:"updated,omitempty"`
 	Username string `json:"username" validate:"required,username,min=6,max=16" gorm:"unique;not null"`
 }
-
-type Comment struct{}
 
 type Payment struct {
 	Amount              int64  `json:"amount,omitempty"`
