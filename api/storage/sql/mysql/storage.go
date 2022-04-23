@@ -35,6 +35,7 @@ func NewMySqlStorage() (*gorm.DB, error) {
 	db.AutoMigrate(
 		&api.Community{},
 		&api.Conversation{},
+		&api.Message{},
 		&api.Payment{},
 		&api.User{},
 	)
