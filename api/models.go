@@ -46,6 +46,19 @@ type Message struct {
 	Zid               string `json:"zid" gorm:"primary_key;unique;not null"`
 }
 
+type Payment struct {
+	Amount              int64  `json:"amount,omitempty"`
+	Memo                string `json:"memo,omitempty"`
+	MessageZid          string `json:"messageZid,omitempty"`
+	RecipientDid        string `json:"recipientDid,omitempty"`
+	RecipientNodePubkey string `json:"recipientNodePubkey,omitempty"`
+	RecipientRelayUrl   string `json:"recipientRelayUrl,omitempty"`
+	SenderDid           string `json:"senderDid,omitempty"`
+	Status              string `json:"status,omitempty"`
+	Type                int64  `json:"type,omitempty"`
+	Zid                 string `json:"zid" gorm:"primary_key;unique;not null"`
+}
+
 type User struct {
 	Bio         string      `json:"bio,omitempty"`
 	Communities []Community `json:"communities,omitempty" gorm:"many2many:user_communities"`
@@ -58,19 +71,6 @@ type User struct {
 	Name        string      `json:"name" validate:"required" gorm:"not null"`
 	Updated     int64       `json:"updated,omitempty"`
 	Username    string      `json:"username" validate:"required,username,min=6,max=16" gorm:"unique;not null"`
-}
-
-type Payment struct {
-	Amount              int64  `json:"amount,omitempty"`
-	Memo                string `json:"memo,omitempty"`
-	MessageZid          string `json:"messageZid,omitempty"`
-	RecipientDid        string `json:"recipientDid,omitempty"`
-	RecipientNodePubkey string `json:"recipientNodePubkey,omitempty"`
-	RecipientRelayUrl   string `json:"recipientRelayUrl,omitempty"`
-	SenderDid           string `json:"senderDid,omitempty"`
-	Status              string `json:"status,omitempty"`
-	Type                int64  `json:"type,omitempty"`
-	Zid                 string `json:"zid" gorm:"primary_key;unique;not null"`
 }
 
 type Comment struct{}
