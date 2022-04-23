@@ -15,6 +15,18 @@ type Community struct {
 	Zid             string `json:"zid" gorm:"primary_key;unique;not null"`
 }
 
+type Conversation struct {
+	CommunityZid string `json:"communityZid" validate:"required" gorm:"not null"`
+	Created      int64  `json:"created,omitempty" gorm:"not null"`
+	Deleted      Bool   `json:"deleted,omitempty" gorm:"default:false"`
+	Img          string `json:"img,omitempty"`
+	Link         string `json:"link,omitempty" validate:"required_without=Text"`
+	Text         string `json:"text,omitempty" validate:"required_without=Link"`
+	Updated      int64  `json:"updated,omitempty"`
+	UserDid      string `json:"userDid" validate:"required"`
+	Zid          string `json:"zid" gorm:"primary_key;unique;not null"`
+}
+
 type User struct {
 	Bio      string `json:"bio,omitempty"`
 	Created  int64  `json:"created,omitempty"`
@@ -29,5 +41,4 @@ type User struct {
 }
 
 type Comment struct{}
-type Conversation struct{}
 type Payment struct{}
