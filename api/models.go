@@ -72,5 +72,3 @@ type User struct {
 	Updated     int64       `json:"updated,omitempty"`
 	Username    string      `json:"username" validate:"required,username,min=6,max=16" gorm:"unique;not null"`
 }
-
-type Comment struct{}

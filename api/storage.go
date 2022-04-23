@@ -4,7 +4,7 @@ type Storage interface {
 	CommunityService
 	UserService
 	ConversationService
-	CommentService
+	// CommentService
 	PaymentService
 }
 
@@ -31,10 +31,10 @@ type ConversationService interface {
 	InsertConversation(*Conversation) error
 }
 
-type CommentService interface {
-	GetComments() ([]Comment, error)
-	InsertComment(*Comment) error
-}
+// type CommentService interface {
+// 	GetComments() ([]Comment, error)
+// 	InsertComment(*Comment) error
+// }
 
 type PaymentService interface {
 	GetPayments() ([]Payment, error)
