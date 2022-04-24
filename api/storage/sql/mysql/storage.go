@@ -7,6 +7,7 @@ import (
 	"gorm.io/gorm"
 
 	"github.com/getzion/relay/api"
+	"github.com/getzion/relay/api/storage/sql/common"
 	"github.com/kelseyhightower/envconfig"
 	"github.com/sirupsen/logrus"
 )
@@ -18,7 +19,11 @@ type mysqlConnectionParams struct {
 	Pass string `envconfig:"DB_PASS"`
 }
 
-func NewMySqlStorage() (*gorm.DB, error) {
+type mysqlStorage struct {
+	*common.Connection
+}
+
+func NewMySqlStorage() (*mysqlStorage, error) {
 	var err error
 	var params mysqlConnectionParams
 	envconfig.Process("", &params)
@@ -41,5 +46,9 @@ func NewMySqlStorage() (*gorm.DB, error) {
 	)
 	logrus.Info("Migrations successful.")
 
-	return db, nil
+	connection := mysqlStorage{
+		Connection: common.NewStore(db),
+	}
+
+	return &connection, nil
 }

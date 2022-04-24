@@ -1,19 +1,15 @@
 package common
 
 import (
-	"database/sql"
-
-	sq "github.com/Masterminds/squirrel"
+	"gorm.io/gorm"
 )
 
 type Connection struct {
-	builder sq.StatementBuilderType
-	db      *sql.DB
+	db *gorm.DB
 }
 
-func NewStore(db *sql.DB, builder sq.StatementBuilderType) *Connection {
+func NewStore(db *gorm.DB) *Connection {
 	return &Connection{
-		db:      db,
-		builder: builder,
+		db: db,
 	}
 }

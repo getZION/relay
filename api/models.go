@@ -72,3 +72,13 @@ type User struct {
 	Updated     int64       `json:"updated,omitempty"`
 	Username    string      `json:"username" validate:"required,username,min=6,max=16" gorm:"unique;not null"`
 }
+
+type JoinCommunity struct {
+	CommunityZid string
+	UserDid      string
+}
+
+type LeaveCommunity struct {
+	CommunityZid string
+	UserDid      string
+}
