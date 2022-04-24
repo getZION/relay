@@ -1,7 +1,11 @@
 package common
 
 import (
+	"time"
+
 	"github.com/getzion/relay/api"
+	"github.com/google/uuid"
+	"github.com/sirupsen/logrus"
 )
 
 func (c *Connection) GetCommunities() ([]api.Community, error) {
@@ -68,12 +72,20 @@ func (c *Connection) GetCommunityByZid(zid string) (*api.Community, error) {
 }
 
 func (c *Connection) InsertCommunity(community *api.Community) error {
+	// return nil
+	currentTime := time.Now().Unix()
+	community.Zid = uuid.NewString()
+	community.Created = currentTime
+	community.Updated = currentTime
+	community.LastActive = currentTime
+
+	result := c.db.Create(community)
+	if result.Error != nil {
+		return result.Error
+	}
+
+	logrus.Debug("Done with community insert?")
 	return nil
-	// currentTime := time.Now().Unix()
-	// community.Zid = uuid.NewString()
-	// community.Created = currentTime
-	// community.Updated = currentTime
-	// community.LastActive = currentTime
 
 	// tx, err := c.db.Begin()
 	// if err != nil {

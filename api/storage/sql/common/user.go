@@ -71,7 +71,7 @@ func (c *Connection) InsertUser(user *api.User) error {
 
 	result := c.db.Create(user)
 	if result.Error != nil {
-		panic(result.Error)
+		return result.Error
 	}
 
 	logrus.Debug("Done with user insert?")
