@@ -28,7 +28,6 @@ func (c *Connection) GetConversations() ([]api.Conversation, error) {
 }
 
 func (c *Connection) InsertConversation(conversation *api.Conversation) error {
-	// //todo: add owner_did? check creator user for permission?
 	currentTime := time.Now().Unix()
 	conversation.Zid = uuid.NewString()
 	conversation.Created = currentTime
@@ -39,34 +38,6 @@ func (c *Connection) InsertConversation(conversation *api.Conversation) error {
 		return result.Error
 	}
 
-	logrus.Info("Done with conversation insert?")
+	logrus.Info("Conversation inserted with zid %s", conversation.Zid)
 	return nil
-
-	// tx, err := c.db.Begin()
-	// if err != nil {
-	// 	return err
-	// }
-
-	// result, err := c.builder.Insert("conversations").
-	// 	Columns("zid", "community_zid", "user_did", "text", "link", "img", "video", "public", "public_price", "created", "updated").
-	// 	Values(conversation.Zid, conversation.CommunityZid, conversation.UserDid, conversation.Text, conversation.Link, conversation.Img, conversation.Video, conversation.Public, conversation.PublicPrice, conversation.Created, conversation.Updated).
-	// 	RunWith(tx).Exec()
-	// if err != nil {
-	// 	tx.Rollback()
-	// 	return err
-	// }
-
-	// conversationId, err := result.LastInsertId()
-	// if err != nil {
-	// 	tx.Rollback()
-	// 	return err
-	// }
-	// conversation.Id = conversationId
-
-	// err = tx.Commit()
-	// if err != nil {
-	// 	return err
-	// }
-
-	// return nil
 }
