@@ -1,7 +1,11 @@
 package common
 
 import (
+	"time"
+
 	"github.com/getzion/relay/api"
+	"github.com/google/uuid"
+	"github.com/sirupsen/logrus"
 )
 
 func (c *Connection) GetConversations() ([]api.Conversation, error) {
@@ -24,12 +28,19 @@ func (c *Connection) GetConversations() ([]api.Conversation, error) {
 }
 
 func (c *Connection) InsertConversation(conversation *api.Conversation) error {
-	return nil
 	// //todo: add owner_did? check creator user for permission?
-	// currentTime := time.Now().Unix()
-	// conversation.Zid = uuid.NewString()
-	// conversation.Created = currentTime
-	// conversation.Updated = currentTime
+	currentTime := time.Now().Unix()
+	conversation.Zid = uuid.NewString()
+	conversation.Created = currentTime
+	conversation.Updated = currentTime
+
+	result := c.db.Create(conversation)
+	if result.Error != nil {
+		return result.Error
+	}
+
+	logrus.Info("Done with conversation insert?")
+	return nil
 
 	// tx, err := c.db.Begin()
 	// if err != nil {
