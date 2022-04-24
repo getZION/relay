@@ -39,7 +39,7 @@ func (c *RequestContext) GetPublicKey() (*ecdsa.PublicKey, *errors.MessageLevelE
 	if err != nil {
 		return nil, errors.NewMessageLevelError(400, "Invalid pubkey", nil)
 	} else {
-		logrus.Debug("Received valid pubkey")
+		logrus.Info("Received valid pubkey")
 	}
 
 	// Convert the secp256k1 key to an ECDSA key.

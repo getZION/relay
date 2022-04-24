@@ -74,7 +74,7 @@ func (c *Connection) InsertUser(user *api.User) error {
 		return result.Error
 	}
 
-	logrus.Debug("Done with user insert?")
+	logrus.Info("Done with user insert?")
 	return nil
 
 	// return nil

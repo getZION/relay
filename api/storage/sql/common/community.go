@@ -84,7 +84,7 @@ func (c *Connection) InsertCommunity(community *api.Community) error {
 		return result.Error
 	}
 
-	logrus.Debug("Done with community insert?")
+	logrus.Info("Done with community insert?")
 	return nil
 
 	// tx, err := c.db.Begin()

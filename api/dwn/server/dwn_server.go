@@ -54,7 +54,7 @@ func (dwnServer *DWNServer) Process(ctx *fiber.Ctx) error {
 		ctx.SendStatus(fiber.StatusBadRequest)
 	}
 
-	logrus.Debug("Request target", request.Target)
+	logrus.Info("Request target", request.Target)
 
 	response := &dwn.Response{
 		RequestId: request.RequestId,
@@ -111,7 +111,7 @@ func (dwnServer *DWNServer) Process(ctx *fiber.Ctx) error {
 		if entry != nil {
 			reply.Entries = entry
 		}
-		logrus.Debug("Processed valid request")
+		logrus.Info("Processed valid request")
 		reply.Status.Code = 200
 		reply.Status.Message = errors.MessageSuccessfulMessage
 		response.Replies = append(response.Replies, reply)
