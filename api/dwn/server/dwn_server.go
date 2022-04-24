@@ -47,7 +47,7 @@ func (dwnServer *DWNServer) Listen(addr string) error {
 }
 
 func (dwnServer *DWNServer) Process(ctx *fiber.Ctx) error {
-	logrus.Debug("We have a request!")
+	logrus.Info("We have a request!")
 	request := dwn.Request{}
 
 	if err := ctx.BodyParser(&request); err != nil {
