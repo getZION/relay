@@ -1,7 +1,10 @@
 package common
 
 import (
+	"time"
+
 	"github.com/getzion/relay/api"
+	"github.com/sirupsen/logrus"
 )
 
 func (c *Connection) GetUsers() ([]api.User, error) {
@@ -62,15 +65,21 @@ func (c *Connection) GetUserByUsername(username string) (*api.User, error) {
 }
 
 func (c *Connection) InsertUser(user *api.User) error {
+	currentTime := time.Now().Unix()
+	user.Created = currentTime
+	user.Updated = currentTime
+
+	result := c.db.Create(user)
+	if result.Error != nil {
+		panic(result.Error)
+	}
+
+	logrus.Debug("Done with user insert?")
 	return nil
-	// currentTime := time.Now().Unix()
-	// user.Created = currentTime
-	// user.Updated = currentTime
+
+	// return nil
 
 	// tx, err := c.db.Begin()
-	// if err != nil {
-	// 	return err
-	// }
 
 	// result, err := c.builder.Insert("users").
 	// 	Columns("did", "username", "email", "name", "bio", "img", "price_to_message", "created", "updated").
