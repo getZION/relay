@@ -9,7 +9,6 @@ import (
 	"github.com/getzion/relay/api/dwn/errors"
 	"github.com/lestrrat-go/jwx/jwa"
 	"github.com/lestrrat-go/jwx/jws"
-	"github.com/sirupsen/logrus"
 )
 
 // Get the public key from the attestation DID.
@@ -38,8 +37,6 @@ func (c *RequestContext) GetPublicKey() (*ecdsa.PublicKey, *errors.MessageLevelE
 	pubKey, err := btcec.ParsePubKey(pubKeyBytes)
 	if err != nil {
 		return nil, errors.NewMessageLevelError(400, "Invalid pubkey", nil)
-	} else {
-		logrus.Info("Received valid pubkey")
 	}
 
 	// Convert the secp256k1 key to an ECDSA key.

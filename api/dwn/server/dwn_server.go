@@ -47,14 +47,11 @@ func (dwnServer *DWNServer) Listen(addr string) error {
 }
 
 func (dwnServer *DWNServer) Process(ctx *fiber.Ctx) error {
-	logrus.Info("We have a request!")
 	request := dwn.Request{}
 
 	if err := ctx.BodyParser(&request); err != nil {
 		ctx.SendStatus(fiber.StatusBadRequest)
 	}
-
-	logrus.Info("Request target", request.Target)
 
 	response := &dwn.Response{
 		RequestId: request.RequestId,
@@ -71,6 +68,8 @@ func (dwnServer *DWNServer) Process(ctx *fiber.Ctx) error {
 		reply := &dwn.Reply{
 			Status: &dwn.Status{},
 		}
+
+		logrus.Info(message.Descriptor.Method + " - " + request.Target)
 
 		context := handler.RequestContext{
 			ModelManager: dwnServer.modelManager,
@@ -111,7 +110,7 @@ func (dwnServer *DWNServer) Process(ctx *fiber.Ctx) error {
 		if entry != nil {
 			reply.Entries = entry
 		}
-		logrus.Info("Processed valid request")
+		// logrus.Info("Processed valid request")
 		reply.Status.Code = 200
 		reply.Status.Message = errors.MessageSuccessfulMessage
 		response.Replies = append(response.Replies, reply)

@@ -10,6 +10,7 @@ import (
 	"github.com/getzion/relay/api/dwn/errors"
 	"github.com/getzion/relay/api/dwn/handler"
 	"github.com/google/uuid"
+	"github.com/sirupsen/logrus"
 )
 
 func CollectionsQuery(context *handler.RequestContext) ([]string, *errors.MessageLevelError) {
@@ -57,6 +58,7 @@ func CollectionsQuery(context *handler.RequestContext) ([]string, *errors.Messag
 		if err != nil {
 			return nil, errors.NewMessageLevelError(500, err.Error(), err)
 		}
+		logrus.Infof("CollectionsQuery - %s", parsedData.Model)
 		entries = append(entries, string(result))
 	}
 
