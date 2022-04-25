@@ -58,9 +58,9 @@ func CollectionsQuery(context *handler.RequestContext) ([]string, *errors.Messag
 		if err != nil {
 			return nil, errors.NewMessageLevelError(500, err.Error(), err)
 		}
-		logrus.Infof("CollectionsQuery - %s", parsedData.Model)
 		entries = append(entries, string(result))
 	}
+	logrus.Infof("CollectionsQuery - %s", parsedData.Model)
 
 	return entries, nil
 }
