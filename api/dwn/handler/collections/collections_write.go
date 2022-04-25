@@ -88,7 +88,7 @@ func CollectionsWrite(context *handler.RequestContext) ([]string, *errors.Messag
 
 		entries = append(entries, string(json))
 
-		logrus.Infof("CollectionsWrite - %s", parsedData.Model)
+		logrus.Infof("CollectionsWrite - %s - %s", parsedData.Model, context.Message.Attestation.Protected.Kid)
 
 		return entries, nil
 	}
