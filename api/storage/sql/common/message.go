@@ -9,22 +9,12 @@ import (
 )
 
 func (c *Connection) GetMessages() ([]api.Message, error) {
-	return nil, nil
-	// row := c.db.QueryRow("CALL get_conversations")
-
-	// var conversations []api.Conversation
-	// var jsonConversations string
-
-	// if err := row.Scan(&jsonConversations); err != nil {
-	// 	return nil, err
-	// }
-
-	// err := json.Unmarshal([]byte(jsonConversations), &conversations)
-	// if err != nil {
-	// 	return nil, err
-	// }
-
-	// return conversations, nil
+	var messages []api.Message
+	result := c.db.Find(&messages)
+	if result.Error != nil {
+		return nil, result.Error
+	}
+	return messages, nil
 }
 
 func (c *Connection) InsertMessage(message *api.Message) error {
