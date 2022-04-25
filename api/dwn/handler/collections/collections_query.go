@@ -60,7 +60,7 @@ func CollectionsQuery(context *handler.RequestContext) ([]string, *errors.Messag
 		}
 		entries = append(entries, string(result))
 	}
-	logrus.Infof("CollectionsQuery - %s", parsedData.Model)
+	logrus.Infof("CollectionsQuery - %s - %s", parsedData.Model, context.Message.Attestation.Protected.Kid)
 
 	return entries, nil
 }

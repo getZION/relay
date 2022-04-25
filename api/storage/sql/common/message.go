@@ -5,7 +5,6 @@ import (
 
 	"github.com/getzion/relay/api"
 	"github.com/google/uuid"
-	"github.com/sirupsen/logrus"
 )
 
 func (c *Connection) GetMessages() ([]api.Message, error) {
@@ -28,6 +27,5 @@ func (c *Connection) InsertMessage(message *api.Message) error {
 		return result.Error
 	}
 
-	logrus.Infof("Message inserted with zid %s", message.Zid)
 	return nil
 }
