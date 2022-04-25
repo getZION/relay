@@ -5,7 +5,6 @@ import (
 
 	"github.com/getzion/relay/api"
 	"github.com/google/uuid"
-	"github.com/sirupsen/logrus"
 )
 
 func (c *Connection) GetCommunities() ([]api.Community, error) {
@@ -72,7 +71,6 @@ func (c *Connection) GetCommunityByZid(zid string) (*api.Community, error) {
 }
 
 func (c *Connection) InsertCommunity(community *api.Community) error {
-	// return nil
 	currentTime := time.Now().Unix()
 	community.Zid = uuid.NewString()
 	community.Created = currentTime
@@ -84,50 +82,7 @@ func (c *Connection) InsertCommunity(community *api.Community) error {
 		return result.Error
 	}
 
-	logrus.Info("Done with community insert?")
 	return nil
-
-	// tx, err := c.db.Begin()
-	// if err != nil {
-	// 	return err
-	// }
-
-	// result, err := c.builder.Insert("communities").
-	// 	Columns("zid", "name", "owner_did", "owner_username", "description", "escrow_amount", "img", "last_active", "price_per_message", "price_to_join", "public", "created", "updated", "deleted").
-	// 	Values(community.Zid, community.Name, community.OwnerDid, community.OwnerUsername, community.Description, community.EscrowAmount, community.Img, community.LastActive, community.PricePerMessage, community.PriceToJoin, community.Public, community.Created, community.Updated, community.Deleted).
-	// 	RunWith(tx).Exec()
-	// if err != nil {
-	// 	tx.Rollback()
-	// 	return err
-	// }
-
-	// communityId, err := result.LastInsertId()
-	// if err != nil {
-	// 	tx.Rollback()
-	// 	return err
-	// }
-	// community.Id = communityId
-
-	// for _, t := range community.Tags {
-	// 	_, err := tx.Exec(fmt.Sprintf(`INSERT INTO tags (tag) SELECT * FROM (SELECT '%s' as t) AS tmp WHERE NOT EXISTS (SELECT tag FROM tags WHERE tag = tmp.t) LIMIT 1`, t))
-	// 	if err != nil {
-	// 		tx.Rollback()
-	// 		return err
-	// 	}
-
-	// 	_, err = tx.Exec(fmt.Sprintf(`INSERT INTO community_tags (community_zid, tag) VALUES ('%s', '%s')`, community.Zid, t))
-	// 	if err != nil {
-	// 		tx.Rollback()
-	// 		return err
-	// 	}
-	// }
-
-	// err = tx.Commit()
-	// if err != nil {
-	// 	return err
-	// }
-
-	// return nil
 }
 
 func (c *Connection) AddUserToCommunity(communityZid, userDid string) error {
