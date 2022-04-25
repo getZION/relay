@@ -5,6 +5,7 @@ const (
 	ZION_CONVERSATION    = "Zion.Conversation.V1"
 	ZION_JOIN_COMMUNITY  = "Zion.JoinCommunity.V1"
 	ZION_LEAVE_COMMUNITY = "Zion.LeaveCommunity.V1"
+	ZION_MESSAGE         = "Zion.Message.V1"
 	ZION_USER            = "Zion.User.V1"
 
 	COMMUNITY    = "Community"

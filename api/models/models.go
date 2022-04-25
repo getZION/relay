@@ -21,6 +21,7 @@ func NewModelManager(storage api.Storage) *ModelManager {
 		handlers: map[string]ModelHandler{
 			constants.ZION_COMMUNITY:       handler.InitCommunityHandler(storage),
 			constants.ZION_CONVERSATION:    handler.InitConversationHandler(storage),
+			constants.ZION_MESSAGE:         handler.InitMessageHandler(storage),
 			constants.ZION_JOIN_COMMUNITY:  handler.InitCommunityJoinHandler(storage),
 			constants.ZION_LEAVE_COMMUNITY: handler.InitCommunityLeaveHandler(storage),
 			constants.ZION_USER:            handler.InitUserHandler(storage),
