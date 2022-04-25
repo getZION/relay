@@ -1,9 +1,6 @@
 package main
 
 import (
-	"fmt"
-	"os"
-
 	"github.com/getzion/relay/api/dwn/server"
 	"github.com/getzion/relay/api/models"
 	"github.com/getzion/relay/api/storage"
@@ -22,7 +19,5 @@ func main() {
 	modelManager := models.NewModelManager(storage)
 	server := server.InitDWNServer(modelManager, storage)
 
-	host := os.Getenv("HOST")
-	port := os.Getenv("PORT")
-	logrus.Fatal(server.Listen(fmt.Sprintf("%s:%s", host, port)))
+	logrus.Fatal(server.Listen(":8080"))
 }

@@ -2,10 +2,10 @@ package api
 
 type Storage interface {
 	CommunityService
-	UserService
 	ConversationService
-	CommentService
+	MessageService
 	PaymentService
+	UserService
 }
 
 // Service represents a service for managing environment(endpoint) data.
@@ -18,25 +18,24 @@ type CommunityService interface {
 	RemoveUserToCommunity(communityZid, userDid, leftReason string) error
 }
 
-// Service represents a service for managing environment(endpoint) data.
-type UserService interface {
-	GetUsers() ([]User, error)
-	GetUserByDid(did string) (*User, error)
-	GetUserByUsername(username string) (*User, error)
-	InsertUser(*User) error
-}
-
 type ConversationService interface {
 	GetConversations() ([]Conversation, error)
 	InsertConversation(*Conversation) error
 }
 
-type CommentService interface {
-	GetComments() ([]Comment, error)
-	InsertComment(*Comment) error
+type MessageService interface {
+	GetMessages() ([]Message, error)
+	InsertMessage(*Message) error
 }
 
 type PaymentService interface {
 	GetPayments() ([]Payment, error)
 	InsertPayment(*Payment) error
+}
+
+type UserService interface {
+	GetUsers() ([]User, error)
+	GetUserByDid(did string) (*User, error)
+	GetUserByUsername(username string) (*User, error)
+	InsertUser(*User) error
 }

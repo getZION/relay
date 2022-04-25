@@ -10,6 +10,7 @@ import (
 
 	"github.com/getzion/relay/api/dwn/errors"
 	"github.com/getzion/relay/api/dwn/handler"
+	"github.com/sirupsen/logrus"
 
 	"github.com/google/uuid"
 )
@@ -86,6 +87,9 @@ func CollectionsWrite(context *handler.RequestContext) ([]string, *errors.Messag
 		}
 
 		entries = append(entries, string(json))
+
+		logrus.Infof("CollectionsWrite - %s - %s", parsedData.Model, context.Message.Attestation.Protected.Kid)
+
 		return entries, nil
 	}
 

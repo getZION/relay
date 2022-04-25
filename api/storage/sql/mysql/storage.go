@@ -1,17 +1,13 @@
 package mysql
 
 import (
-	"database/sql"
 	"fmt"
 
-	sq "github.com/Masterminds/squirrel"
-	"github.com/getzion/relay/api/storage/sql/common"
-	"github.com/getzion/relay/api/storage/sql/mysql/migrations"
-	_ "github.com/go-sql-driver/mysql"
-	"github.com/golang-migrate/migrate/v4"
+	"gorm.io/driver/mysql"
+	"gorm.io/gorm"
 
-	"github.com/golang-migrate/migrate/v4/database/mysql"
-	bindata "github.com/golang-migrate/migrate/v4/source/go_bindata"
+	"github.com/getzion/relay/api"
+	"github.com/getzion/relay/api/storage/sql/common"
 	"github.com/kelseyhightower/envconfig"
 	"github.com/sirupsen/logrus"
 )
@@ -28,49 +24,30 @@ type mysqlStorage struct {
 }
 
 func NewMySqlStorage() (*mysqlStorage, error) {
-
 	var err error
 	var params mysqlConnectionParams
 	envconfig.Process("", &params)
 
-	databaseConnectionString := fmt.Sprintf("%s:%s@tcp(%s)/%s?multiStatements=true", params.User, params.Pass, params.Host, params.Name)
-	logrus.Infof("Connecting to MySQL database: %s", databaseConnectionString)
+	databaseConnectionString := fmt.Sprintf("%s:%s@tcp(%s:25060)/%s?multiStatements=true", params.User, params.Pass, params.Host, params.Name)
 
-	db, err := sql.Open("mysql", databaseConnectionString)
+	db, err := gorm.Open(mysql.Open(databaseConnectionString), &gorm.Config{})
+
 	if err != nil {
 		return nil, err
 	}
+	logrus.Info("Connected to MySQL database.")
+
+	db.AutoMigrate(
+		&api.Community{},
+		&api.Conversation{},
+		&api.Message{},
+		&api.Payment{},
+		&api.User{},
+	)
+	logrus.Info("Migrations successful.")
 
 	connection := mysqlStorage{
-		Connection: common.NewStore(db, sq.StatementBuilder.RunWith(sq.NewStmtCache(db))),
-	}
-
-	s := bindata.Resource(migrations.AssetNames(),
-		func(name string) ([]byte, error) {
-			return migrations.Asset(name)
-		})
-
-	driver, err := bindata.WithInstance(s)
-	if err != nil {
-		return nil, err
-	}
-
-	dbDriver, err := mysql.WithInstance(db, &mysql.Config{})
-	if err != nil {
-		return nil, err
-	}
-
-	m, err := migrate.NewWithInstance("go-bindata", driver, params.Name, dbDriver)
-	if err != nil {
-		return nil, err
-	}
-
-	if err := m.Up(); err != nil {
-		if err.Error() == "no change" {
-			logrus.Info("no change made by migrations")
-		} else {
-			return nil, err
-		}
+		Connection: common.NewStore(db),
 	}
 
 	return &connection, nil

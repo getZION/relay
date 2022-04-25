@@ -1,7 +1,6 @@
 package common
 
 import (
-	"encoding/json"
 	"time"
 
 	"github.com/getzion/relay/api"
@@ -9,56 +8,23 @@ import (
 )
 
 func (c *Connection) GetConversations() ([]api.Conversation, error) {
-
-	row := c.db.QueryRow("CALL get_conversations")
-
 	var conversations []api.Conversation
-	var jsonConversations string
-
-	if err := row.Scan(&jsonConversations); err != nil {
-		return nil, err
+	result := c.db.Find(&conversations)
+	if result.Error != nil {
+		return nil, result.Error
 	}
-
-	err := json.Unmarshal([]byte(jsonConversations), &conversations)
-	if err != nil {
-		return nil, err
-	}
-
 	return conversations, nil
 }
 
 func (c *Connection) InsertConversation(conversation *api.Conversation) error {
-
-	//todo: add owner_did? check creator user for permission?
 	currentTime := time.Now().Unix()
 	conversation.Zid = uuid.NewString()
 	conversation.Created = currentTime
 	conversation.Updated = currentTime
 
-	tx, err := c.db.Begin()
-	if err != nil {
-		return err
-	}
-
-	result, err := c.builder.Insert("conversations").
-		Columns("zid", "community_zid", "user_did", "text", "link", "img", "video", "public", "public_price", "created", "updated").
-		Values(conversation.Zid, conversation.CommunityZid, conversation.UserDid, conversation.Text, conversation.Link, conversation.Img, conversation.Video, conversation.Public, conversation.PublicPrice, conversation.Created, conversation.Updated).
-		RunWith(tx).Exec()
-	if err != nil {
-		tx.Rollback()
-		return err
-	}
-
-	conversationId, err := result.LastInsertId()
-	if err != nil {
-		tx.Rollback()
-		return err
-	}
-	conversation.Id = conversationId
-
-	err = tx.Commit()
-	if err != nil {
-		return err
+	result := c.db.Create(conversation)
+	if result.Error != nil {
+		return result.Error
 	}
 
 	return nil
