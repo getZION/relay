@@ -1,6 +1,7 @@
 package common
 
 import (
+	"encoding/json"
 	"time"
 
 	"github.com/getzion/relay/api"
@@ -8,22 +9,17 @@ import (
 )
 
 func (c *Connection) GetCommunities() ([]api.Community, error) {
+	var communities []api.Community
+	var jsonCommunities string
+	result := c.db.Find(&communities)
+	result.Scan(&jsonCommunities)
 
-	// row := c.db.QueryRow("CALL get_communities")
+	err := json.Unmarshal([]byte(jsonCommunities), &communities)
+	if err != nil {
+		return nil, err
+	}
 
-	// var communities []api.Community
-	// var jsonCommunities string
-
-	// if err := row.Scan(&jsonCommunities); err != nil {
-	// 	return nil, err
-	// }
-
-	// err := json.Unmarshal([]byte(jsonCommunities), &communities)
-	// if err != nil {
-	// 	return nil, err
-	// }
-
-	return nil, nil
+	return communities, nil
 }
 
 func (c *Connection) GetCommunityByZid(zid string) (*api.Community, error) {
