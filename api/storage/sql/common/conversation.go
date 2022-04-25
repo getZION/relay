@@ -38,6 +38,6 @@ func (c *Connection) InsertConversation(conversation *api.Conversation) error {
 		return result.Error
 	}
 
-	logrus.Info("Conversation inserted with zid %s", conversation.Zid)
+	logrus.Infof("Conversation inserted with zid %s", conversation.Zid)
 	return nil
 }

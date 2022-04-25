@@ -69,8 +69,6 @@ func (dwnServer *DWNServer) Process(ctx *fiber.Ctx) error {
 			Status: &dwn.Status{},
 		}
 
-		logrus.Info(message.Descriptor.Method + " - " + request.Target)
-
 		context := handler.RequestContext{
 			ModelManager: dwnServer.modelManager,
 			Message:      message,
