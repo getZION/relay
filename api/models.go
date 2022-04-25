@@ -19,7 +19,7 @@ type Community struct {
 }
 
 type Conversation struct {
-	CommunityZid string    `json:"communityZid" validate:"required" gorm:"not null"`
+	CommunityZid string    `json:"communityZid" validate:"required" gorm:"not null;size:191"`
 	Created      int64     `json:"created,omitempty" gorm:"not null"`
 	Deleted      Bool      `json:"deleted,omitempty" gorm:"default:false"`
 	Img          string    `json:"img,omitempty"`
