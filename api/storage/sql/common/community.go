@@ -1,27 +1,29 @@
 package common
 
 import (
-	"encoding/json"
 	"time"
 
 	"github.com/getzion/relay/api"
 	"github.com/google/uuid"
+	"github.com/sirupsen/logrus"
 )
 
 func (c *Connection) GetCommunities() ([]api.Community, error) {
 	var communities []api.Community
-	var jsonCommunities string
+	// var jsonCommunities string
 	result := c.db.Find(&communities)
 	if result.Error != nil {
 		return nil, result.Error
 	}
 
-	result.Scan(&jsonCommunities)
+	logrus.Infof("Communities length after result thing: %s", len(communities))
+	// result.f(&jsonCommunities)
 
-	err := json.Unmarshal([]byte(jsonCommunities), &communities)
-	if err != nil {
-		return nil, err
-	}
+	// communities, err := json.Marshal(result)
+	// err := json.Unmarshal([]byte(jsonCommunities), &communities)
+	// if err != nil {
+	// 	return nil, err
+	// }
 
 	return communities, nil
 }
