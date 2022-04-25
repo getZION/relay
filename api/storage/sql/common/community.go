@@ -5,26 +5,14 @@ import (
 
 	"github.com/getzion/relay/api"
 	"github.com/google/uuid"
-	"github.com/sirupsen/logrus"
 )
 
 func (c *Connection) GetCommunities() ([]api.Community, error) {
 	var communities []api.Community
-	// var jsonCommunities string
 	result := c.db.Find(&communities)
 	if result.Error != nil {
 		return nil, result.Error
 	}
-
-	logrus.Infof("Communities length after result thing: %s", len(communities))
-	// result.f(&jsonCommunities)
-
-	// communities, err := json.Marshal(result)
-	// err := json.Unmarshal([]byte(jsonCommunities), &communities)
-	// if err != nil {
-	// 	return nil, err
-	// }
-
 	return communities, nil
 }
 

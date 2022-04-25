@@ -8,22 +8,12 @@ import (
 )
 
 func (c *Connection) GetUsers() ([]api.User, error) {
-	return nil, nil
-	// row := c.db.QueryRow("CALL get_users")
-
-	// var users []api.User
-	// var jsonUsers string
-
-	// if err := row.Scan(&jsonUsers); err != nil {
-	// 	return nil, err
-	// }
-
-	// err := json.Unmarshal([]byte(jsonUsers), &users)
-	// if err != nil {
-	// 	return nil, err
-	// }
-
-	// return users, nil
+	var users []api.User
+	result := c.db.Find(&users)
+	if result.Error != nil {
+		return nil, result.Error
+	}
+	return users, nil
 }
 
 func (c *Connection) GetUserByDid(did string) (*api.User, error) {
