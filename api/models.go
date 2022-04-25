@@ -33,18 +33,18 @@ type Conversation struct {
 }
 
 type Message struct {
-	ConversationZid   string `json:"conversationZid,omitempty" gorm:"size:191"`
-	CommunityZid      string `json:"communityZid,omitempty" gorm:"size:191"`
-	Created           int64  `json:"created,omitempty" gorm:"not null"`
-	Deleted           Bool   `json:"deleted,omitempty" gorm:"default:false"`
-	Img               string `json:"img,omitempty"`
-	Link              string `json:"link,omitempty" validate:"required_without=Text"`
-	ReceivingUserDid  string `json:"receivingUserDid,omitempty"`
-	ReplyToMessageZid string `json:"replyToMessageZid,omitempty"`
-	Text              string `json:"text,omitempty" validate:"required_without=Link"`
-	Updated           int64  `json:"updated,omitempty"`
-	UserDid           string `json:"userDid,omitempty"`
-	Zid               string `json:"zid" gorm:"primary_key;unique;not null"`
+	ConversationZid   *string `json:"conversationZid,omitempty" gorm:"size:191"`
+	CommunityZid      *string `json:"communityZid,omitempty" gorm:"size:191"`
+	Created           int64   `json:"created,omitempty" gorm:"not null"`
+	Deleted           Bool    `json:"deleted,omitempty" gorm:"default:false"`
+	Img               string  `json:"img,omitempty"`
+	Link              string  `json:"link,omitempty" validate:"required_without=Text"`
+	ReceivingUserDid  string  `json:"receivingUserDid,omitempty"`
+	ReplyToMessageZid string  `json:"replyToMessageZid,omitempty"`
+	Text              string  `json:"text,omitempty" validate:"required_without=Link"`
+	Updated           int64   `json:"updated,omitempty"`
+	UserDid           string  `json:"userDid,omitempty"`
+	Zid               string  `json:"zid" gorm:"primary_key;unique;not null"`
 }
 
 type Payment struct {
