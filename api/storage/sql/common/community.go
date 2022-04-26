@@ -9,7 +9,7 @@ import (
 
 func (c *Connection) GetCommunities() ([]api.Community, error) {
 	var communities []api.Community
-	result := c.db.Find(&communities)
+	result := c.db.Preload("Users").Find(&communities)
 	if result.Error != nil {
 		return nil, result.Error
 	}
