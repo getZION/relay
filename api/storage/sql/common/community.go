@@ -5,6 +5,7 @@ import (
 
 	"github.com/getzion/relay/api"
 	"github.com/google/uuid"
+	"github.com/sirupsen/logrus"
 )
 
 func (c *Connection) GetCommunities() ([]api.Community, error) {
@@ -40,31 +41,13 @@ func (c *Connection) InsertCommunity(community *api.Community) error {
 	return nil
 }
 
-func (c *Connection) AddUserToCommunity(communityZid, userDid string) error {
+func (c *Connection) AddUserToCommunity(community *api.Community, user *api.User) error {
+	result := c.db.Model(&user).Association("Communities").Append(&community)
+	if result.Error() != "" {
+		logrus.Panicf("AddUserToCommunity failed: %s", result.Error())
+		return c.db.Error
+	}
 	return nil
-	// var exist bool
-	// err := c.db.QueryRow(fmt.Sprintf(`SELECT EXISTS(SELECT id FROM community_users cu WHERE cu.community_zid = '%s' AND cu.user_did = '%s' AND cu.left_date IS NULL)`, communityZid, userDid)).Scan(&exist)
-	// if exist {
-	// 	return fmt.Errorf("user already member of this community")
-	// }
-
-	// tx, err := c.db.Begin()
-	// if err != nil {
-	// 	return err
-	// }
-
-	// _, err = tx.Exec(fmt.Sprintf(`INSERT INTO community_users (community_zid, user_did, joined_date) VALUES ('%s', '%s', %d)`, communityZid, userDid, time.Now().Unix()))
-	// if err != nil {
-	// 	tx.Rollback()
-	// 	return err
-	// }
-
-	// err = tx.Commit()
-	// if err != nil {
-	// 	return err
-	// }
-
-	// return nil
 }
 
 func (c *Connection) RemoveUserFromCommunity(communityZid, userDid, leftReason string) error {

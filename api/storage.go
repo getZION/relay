@@ -13,7 +13,7 @@ type CommunityService interface {
 	GetCommunityByZid(string) (*Community, error)
 	InsertCommunity(*Community) error
 
-	AddUserToCommunity(communityZid, userDid string) error
+	AddUserToCommunity(*Community, *User) error
 	RemoveUserFromCommunity(communityZid, userDid, leftReason string) error
 }
 
