@@ -19,7 +19,7 @@ func (c *Connection) GetUsers() ([]api.User, error) {
 func (c *Connection) GetUserByDid(did string) (*api.User, error) {
 	logrus.Infof("GetUserByDid: Looking for %s", did)
 	var user api.User
-	result := c.db.First(&user, did)
+	result := c.db.First(&user, "did = ?", did)
 	if result.Error != nil {
 		return nil, result.Error
 	}

@@ -20,7 +20,7 @@ func (c *Connection) GetCommunities() ([]api.Community, error) {
 func (c *Connection) GetCommunityByZid(zid string) (*api.Community, error) {
 	logrus.Infof("GetCommunityByZid: Looking for %s", zid)
 	var community api.Community
-	result := c.db.First(&community, zid)
+	result := c.db.First(&community, "zid = ?", zid)
 	if result.Error != nil {
 		return nil, result.Error
 	}
