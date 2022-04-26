@@ -18,12 +18,13 @@ func (c *Connection) GetCommunities() ([]api.Community, error) {
 }
 
 func (c *Connection) GetCommunityByZid(zid string) (*api.Community, error) {
+	logrus.Infof("GetCommunityByZid: Looking for %s", zid)
 	var community api.Community
 	result := c.db.First(&community, zid)
 	if result.Error != nil {
 		return nil, result.Error
 	}
-	logrus.Debugf("GetCommunityByZid: Returning %s", community.Name)
+	logrus.Infof("GetCommunityByZid: Returning %s", community.Name)
 	return &community, nil
 }
 
