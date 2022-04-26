@@ -4,7 +4,6 @@ import (
 	"time"
 
 	"github.com/getzion/relay/api"
-	"github.com/sirupsen/logrus"
 )
 
 func (c *Connection) GetUsers() ([]api.User, error) {
@@ -64,33 +63,5 @@ func (c *Connection) InsertUser(user *api.User) error {
 		return result.Error
 	}
 
-	logrus.Info("Done with user insert?")
 	return nil
-
-	// return nil
-
-	// tx, err := c.db.Begin()
-
-	// result, err := c.builder.Insert("users").
-	// 	Columns("did", "username", "email", "name", "bio", "img", "price_to_message", "created", "updated").
-	// 	Values(user.Did, user.Username, user.Email, user.Name, user.Bio, user.Img, user.PriceToMessage, user.Created, user.Updated).
-	// 	RunWith(tx).Exec()
-	// if err != nil {
-	// 	tx.Rollback()
-	// 	return err
-	// }
-
-	// userId, err := result.LastInsertId()
-	// if err != nil {
-	// 	tx.Rollback()
-	// 	return err
-	// }
-	// user.Id = userId
-
-	// err = tx.Commit()
-	// if err != nil {
-	// 	return err
-	// }
-
-	// return nil
 }
