@@ -8,14 +8,13 @@ type Storage interface {
 	UserService
 }
 
-// Service represents a service for managing environment(endpoint) data.
 type CommunityService interface {
 	GetCommunities() ([]Community, error)
 	GetCommunityByZid(string) (*Community, error)
 	InsertCommunity(*Community) error
 
 	AddUserToCommunity(communityZid, userDid string) error
-	RemoveUserToCommunity(communityZid, userDid, leftReason string) error
+	RemoveUserFromCommunity(communityZid, userDid, leftReason string) error
 }
 
 type ConversationService interface {

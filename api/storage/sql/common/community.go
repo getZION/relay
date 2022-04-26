@@ -67,7 +67,7 @@ func (c *Connection) AddUserToCommunity(communityZid, userDid string) error {
 	// return nil
 }
 
-func (c *Connection) RemoveUserToCommunity(communityZid, userDid, leftReason string) error {
+func (c *Connection) RemoveUserFromCommunity(communityZid, userDid, leftReason string) error {
 	return nil
 	// var exist bool
 	// err := c.db.QueryRow(fmt.Sprintf(`SELECT EXISTS(SELECT id FROM community_users cu WHERE cu.community_zid = '%s' AND cu.user_did = '%s' AND cu.left_date IS NULL)`, communityZid, userDid)).Scan(&exist)
