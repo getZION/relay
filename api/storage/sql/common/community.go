@@ -17,47 +17,12 @@ func (c *Connection) GetCommunities() ([]api.Community, error) {
 }
 
 func (c *Connection) GetCommunityByZid(zid string) (*api.Community, error) {
-	return nil, nil
-	// var community api.Community
-	// err := c.builder.Select("c.id, c.zid").From("communities c").Where(sq.Eq{"zid": zid}).QueryRow().Scan(&community.Id, &community.Zid)
-	// if err != nil {
-	// 	if errors.Is(err, sql.ErrNoRows) {
-	// 		return nil, fmt.Errorf("community not found %s", zid)
-	// 	}
-
-	// 	return nil, err
-	// }
-
-	// tagRows, err := c.builder.Select("ct.tag").From("community_tags ct").Where(sq.Eq{"community_zid": zid}).Query()
-	// if err != nil {
-	// 	return nil, err
-	// }
-
-	// var tags []string
-	// for tagRows.Next() {
-	// 	var tag string
-	// 	tagRows.Scan(&tag)
-	// 	tags = append(tags, tag)
-	// }
-
-	// tagRows.Close()
-	// community.Tags = tags
-
-	// userRows, err := c.builder.Select("cu.id, cu.community_zid, cu.user_did, cu.joined_date, cu.left_date").From("community_users cu").Where(sq.Eq{"community_zid": zid}).Query()
-	// if err != nil {
-	// 	return nil, err
-	// }
-
-	// var users []api.UserCommunity
-	// for userRows.Next() {
-	// 	var user api.UserCommunity
-	// 	userRows.Scan(&user.Id, &user.CommunityZid, &user.UserDid, &user.JoinedDate, &user.LeftDate)
-	// 	users = append(users, user)
-	// }
-	// userRows.Close()
-	// community.Users = users
-
-	// return &community, nil
+	var community api.Community
+	result := c.db.First(&community, zid)
+	if result.Error != nil {
+		return nil, result.Error
+	}
+	return &community, nil
 }
 
 func (c *Connection) InsertCommunity(community *api.Community) error {
