@@ -23,6 +23,7 @@ func (c *Connection) GetCommunityByZid(zid string) (*api.Community, error) {
 	if result.Error != nil {
 		return nil, result.Error
 	}
+	logrus.Debugf("GetCommunityByZid: Returning %s", community.Name)
 	return &community, nil
 }
 

@@ -4,6 +4,7 @@ import (
 	"time"
 
 	"github.com/getzion/relay/api"
+	"github.com/sirupsen/logrus"
 )
 
 func (c *Connection) GetUsers() ([]api.User, error) {
@@ -21,6 +22,7 @@ func (c *Connection) GetUserByDid(did string) (*api.User, error) {
 	if result.Error != nil {
 		return nil, result.Error
 	}
+	logrus.Debugf("GetUserByDid: Returning %s", user.Username)
 	return &user, nil
 }
 
