@@ -36,6 +36,5 @@ type PaymentService interface {
 type UserService interface {
 	GetUsers() ([]User, error)
 	GetUserByDid(did string) (*User, error)
-	GetUserByUsername(username string) (*User, error)
 	InsertUser(*User) error
 }
