@@ -46,7 +46,7 @@ func (c *Connection) InsertCommunity(community *api.Community) error {
 func (c *Connection) AddUserToCommunity(community *api.Community, user *api.User) error {
 	logrus.Infof("[AddUserToCommunity] community: %s", community.Name)
 	logrus.Infof("[AddUserToCommunity] user: %s", user.Name)
-	c.db.Model(&user).Association("Communitys").Append(&community)
+	c.db.Model(&user).Association("communities").Append(&community)
 	logrus.Info("AddUserToCommunity done maybe")
 	return nil
 }
