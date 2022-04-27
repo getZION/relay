@@ -44,25 +44,14 @@ func (c *Connection) InsertCommunity(community *api.Community) error {
 }
 
 func (c *Connection) AddUserToCommunity(community *api.Community, user *api.User) error {
-	logrus.Infof("[AddUserToCommunity] community: %s", community.Name)
-	logrus.Infof("[AddUserToCommunity] user: %s", user.Name)
-
-	// c.db.Session(&gorm.Session{FullSaveAssociations: true}).Updates(&user)
-
 	association := c.db.Model(&community).Omit("Users.*").Association("Users").Append(user)
 	if association != nil {
 		logrus.Info("AddUserToCommunity association error...", association.Error())
-	} else {
-		logrus.Info("AddUserToCommunity association seems to have no error...")
 	}
-
 	return association
-
-	// c.db.Session(&gorm.Session{FullSaveAssociations: true}).Updates(api.User{}).Updates(api.User{})
-	// c.db.Model(&user).Association("Communities").Append(&community)
 }
 
 func (c *Connection) RemoveUserFromCommunity(community *api.Community, user *api.User) error {
-	association := c.db.Model(community).Omit("users").Association("users").Append(user)
+	association := c.db.Model(community).Omit("Users.*").Association("Users").Append(user)
 	return association
 }
