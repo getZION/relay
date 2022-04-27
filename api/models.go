@@ -14,7 +14,7 @@ type Community struct {
 	PricePerMessage int64          `json:"pricePerMessage" validate:"gte=0,lt=100000" gorm:"not null"`
 	PriceToJoin     int64          `json:"priceToJoin" validate:"gte=0,lt=100000" gorm:"not null"`
 	Updated         int64          `json:"updated,omitempty"`
-	Users           []User         `json:"users,omitempty" gorm:"foreignkey:Zid;association_foreignkey:Did;many2many:community_users;jointable_foreignkey:CommunityZid;association_jointable_foreignkey:UserDid"`
+	Users           []User         `json:"users,omitempty" gorm:"foreignkey:zid;association_foreignkey:did;many2many:community_users;jointable_foreignkey:community_zid;association_jointable_foreignkey:user_did"`
 	Zid             string         `json:"zid" gorm:"primary_key;unique;not null"`
 }
 
