@@ -58,39 +58,4 @@ func (c *Connection) AddUserToCommunity(community *api.Community, user *api.User
 func (c *Connection) RemoveUserFromCommunity(community *api.Community, user *api.User) error {
 	association := c.db.Model(community).Omit("users").Association("users").Append(user)
 	return association
-	// var exist bool
-	// err := c.db.QueryRow(fmt.Sprintf(`SELECT EXISTS(SELECT id FROM community_users cu WHERE cu.community_zid = '%s' AND cu.user_did = '%s' AND cu.left_date IS NULL)`, communityZid, userDid)).Scan(&exist)
-	// if !exist {
-	// 	return fmt.Errorf("user already doesn't member of this community")
-	// }
-
-	// tx, err := c.db.Begin()
-	// if err != nil {
-	// 	return err
-	// }
-
-	// sqlBuilder := c.builder.Update("community_users").Set("left_date", time.Now().Unix())
-
-	// if leftReason != "" {
-	// 	sqlBuilder = sqlBuilder.Set("left_reason", leftReason)
-	// }
-
-	// sqlBuilder = sqlBuilder.Where(sq.And{
-	// 	sq.Eq{"community_zid": communityZid},
-	// 	sq.Eq{"user_did": userDid},
-	// 	sq.Eq{"left_date": nil},
-	// })
-
-	// _, err = sqlBuilder.RunWith(tx).Exec()
-	// if err != nil {
-	// 	tx.Rollback()
-	// 	return err
-	// }
-
-	// err = tx.Commit()
-	// if err != nil {
-	// 	return err
-	// }
-
-	// return nil
 }
