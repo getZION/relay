@@ -5,6 +5,7 @@ import (
 
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
+	"gorm.io/gorm/logger"
 
 	"github.com/getzion/relay/api"
 	"github.com/getzion/relay/api/storage/sql/common"
@@ -30,7 +31,9 @@ func NewMySqlStorage() (*mysqlStorage, error) {
 
 	databaseConnectionString := fmt.Sprintf("%s:%s@tcp(%s:25060)/%s?multiStatements=true", params.User, params.Pass, params.Host, params.Name)
 
-	db, err := gorm.Open(mysql.Open(databaseConnectionString), &gorm.Config{})
+	db, err := gorm.Open(mysql.Open(databaseConnectionString), &gorm.Config{
+		Logger: logger.Default.LogMode(logger.Info),
+	})
 
 	if err != nil {
 		return nil, err
