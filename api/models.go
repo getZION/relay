@@ -61,17 +61,16 @@ type Payment struct {
 }
 
 type User struct {
-	Bio         string      `json:"bio,omitempty"`
-	Communities []Community `json:"communities,omitempty" gorm:"many2many:user_communities"`
-	Created     int64       `json:"created,omitempty"`
-	Did         string      `json:"did" validate:"required" gorm:"primary_key;unique;not null"`
-	Img         string      `json:"img,omitempty"`
-	ImgCover    string      `json:"imgCover,omitempty"`
-	Link        string      `json:"link,omitempty"`
-	Location    string      `json:"location,omitempty"`
-	Name        string      `json:"name" validate:"required" gorm:"not null"`
-	Updated     int64       `json:"updated,omitempty"`
-	Username    string      `json:"username" validate:"required,username,min=6,max=16" gorm:"unique;not null"`
+	Bio      string `json:"bio,omitempty"`
+	Created  int64  `json:"created,omitempty"`
+	Did      string `json:"did" validate:"required" gorm:"primary_key;unique;not null"`
+	Img      string `json:"img,omitempty"`
+	ImgCover string `json:"imgCover,omitempty"`
+	Link     string `json:"link,omitempty"`
+	Location string `json:"location,omitempty"`
+	Name     string `json:"name" validate:"required" gorm:"not null"`
+	Updated  int64  `json:"updated,omitempty"`
+	Username string `json:"username" validate:"required,username,min=6,max=16" gorm:"unique;not null"`
 }
 
 type JoinCommunity struct {
