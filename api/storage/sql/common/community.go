@@ -50,8 +50,12 @@ func (c *Connection) AddUserToCommunity(community *api.Community, user *api.User
 	// c.db.Session(&gorm.Session{FullSaveAssociations: true}).Updates(&user)
 
 	association := c.db.Model(community).Omit("Users").Association("Users").Append(user)
-	logrus.Info("AddUserToCommunity done maybe?!!!!!")
-	logrus.Info("AddUserToCommunity error?", association.Error())
+	if association != nil {
+		logrus.Info("AddUserToCommunity association error...", association.Error())
+	} else {
+		logrus.Info("AddUserToCommunity association seems to have no error...")
+	}
+
 	return association
 
 	// c.db.Session(&gorm.Session{FullSaveAssociations: true}).Updates(api.User{}).Updates(api.User{})
