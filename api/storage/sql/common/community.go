@@ -6,7 +6,6 @@ import (
 	"github.com/getzion/relay/api"
 	"github.com/google/uuid"
 	"github.com/sirupsen/logrus"
-	"gorm.io/gorm"
 )
 
 func (c *Connection) GetCommunities() ([]api.Community, error) {
@@ -48,7 +47,7 @@ func (c *Connection) AddUserToCommunity(community *api.Community, user *api.User
 	logrus.Infof("[AddUserToCommunity] community: %s", community.Name)
 	logrus.Infof("[AddUserToCommunity] user: %s", user.Name)
 
-	c.db.Session(&gorm.Session{FullSaveAssociations: true}).Updates(&user)
+	// c.db.Session(&gorm.Session{FullSaveAssociations: true}).Updates(&user)
 
 	association := c.db.Model(community).Omit("Users").Association("Users").Append(user)
 	logrus.Info("AddUserToCommunity done maybe?!!!!!")
