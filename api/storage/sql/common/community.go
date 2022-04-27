@@ -47,7 +47,7 @@ func (c *Connection) InsertCommunity(community *api.Community) error {
 func (c *Connection) AddUserToCommunity(community *api.Community, user *api.User) error {
 	logrus.Infof("[AddUserToCommunity] community: %s", community.Name)
 	logrus.Infof("[AddUserToCommunity] user: %s", user.Name)
-	c.db.Session(&gorm.Session{FullSaveAssociations: true}).Updates(&user).Updates(&community)
+	c.db.Session(&gorm.Session{FullSaveAssociations: true}).Updates(api.User{}).Updates(api.User{})
 	c.db.Model(&user).Association("Communities").Append(&community)
 	logrus.Info("AddUserToCommunity done maybe?!")
 	return nil
