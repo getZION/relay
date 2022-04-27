@@ -14,7 +14,7 @@ type CommunityService interface {
 	InsertCommunity(*Community) error
 
 	AddUserToCommunity(*Community, *User) error
-	RemoveUserFromCommunity(communityZid, userDid, leftReason string) error
+	RemoveUserFromCommunity(*Community, *User) error
 }
 
 type ConversationService interface {
