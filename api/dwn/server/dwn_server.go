@@ -35,6 +35,7 @@ func InitDWNServer(modelManager *models.ModelManager, storage api.Storage) *DWNS
 	}
 	app := fiber.New(fiber.Config{})
 	app.Post("/", dwnServer.Process)
+	app.Post("/media", dwnServer.Process)
 	app.Get("/", func(c *fiber.Ctx) error {
 		return c.SendString("Relay is live!")
 	})
