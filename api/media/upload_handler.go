@@ -39,6 +39,8 @@ func UploadHandler(ctx *fiber.Ctx) error {
 	envconfig.Process("", &params)
 
 	request := UploadRequest{}
+	logrus.Infof("Attestation: %s", request.Attestation)
+	logrus.Infof("Bytes: %s", request.Bytes)
 
 	if err := ctx.BodyParser(&request); err != nil {
 		ctx.SendStatus(fiber.StatusBadRequest)
