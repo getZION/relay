@@ -7,6 +7,7 @@ import (
 	"github.com/getzion/relay/api/dwn/errors"
 	"github.com/getzion/relay/api/dwn/handler"
 	"github.com/getzion/relay/api/dwn/handler/collections"
+	"github.com/getzion/relay/api/media"
 	"github.com/getzion/relay/api/models"
 	"github.com/sirupsen/logrus"
 
@@ -35,7 +36,7 @@ func InitDWNServer(modelManager *models.ModelManager, storage api.Storage) *DWNS
 	}
 	app := fiber.New(fiber.Config{})
 	app.Post("/", dwnServer.Process)
-	app.Post("/media", dwnServer.Process)
+	app.Post("/media", media.UploadHandler)
 	app.Get("/", func(c *fiber.Ctx) error {
 		return c.SendString("Relay is live!")
 	})
